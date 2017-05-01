@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "41122470132",
+    "firebase_url": "https://nerbyhospitalv1.firebaseio.com",
+    "project_id": "nerbyhospitalv1",
+    "storage_bucket": "nerbyhospitalv1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:41122470132:android:6ca4d10fb5b3bf09",
+        "android_client_info": {
+          "package_name": "com.camilobc.nerby_hospital"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "41122470132-08fr5momgd6p59r21ppb048951jtnudf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.camilobc.nerby_hospital",
+            "certificate_hash": "a1d231a735e5e9ae6452d909e55ba59fa19da33e"
+          }
+        },
+        {
+          "client_id": "41122470132-gjbkt1bu32e029bemp67g5vs9mcmckob.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmFJhpzOqP0afhrdZmjNYBlx37L4Ts5lU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "41122470132-gjbkt1bu32e029bemp67g5vs9mcmckob.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

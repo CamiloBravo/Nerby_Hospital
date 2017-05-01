@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/hospital2_opt2"
+    android:orientation="vertical"
+    tools:context="com.camilobc.nerby_hospital.LoginActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#696969"
+            android:text="Nearby Hospital"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_marginTop="330dp"/>
+        <EditText
+            android:layout_width="200dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:textColor="#9f3730"
+            android:textColorHint="#9f3730"
+            android:textAlignment="center"
+            android:hint="Correo Electrónico"
+            android:id="@+id/edcorreo"/>
+        <EditText
+            android:layout_width="200dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:textColor="#9f3730"
+            android:textAlignment="center"
+            android:textColorHint="#9f3730"
+            android:hint="@string/contrasena"
+            android:id="@+id/econtrasena"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""/>
+        <Button
+            android:id="@+id/biniciar"
+            android:layout_width="110dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="4dp"
+            android:background="@drawable/boton_redon"
+            android:text="@string/iniciar"
+            android:textColor="@color/white" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:text="@string/registrar"
+                android:background="@drawable/boton_redonred"
+                android:textColor="@color/white"
+                android:id="@+id/bregistrese"/>
+            <Button
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:text="@string/emergencia"
+                android:background="@drawable/boton_redonred"
+                android:textColor="@color/white"
+                android:layout_marginLeft="110dp"
+                android:id="@+id/bemergencia"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
