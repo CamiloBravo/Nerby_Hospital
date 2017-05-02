@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Emergencias">
+        <menu>
+            <item
+                android:id="@+id/accidente"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Accidente" />
+            <item
+                android:id="@+id/quemaduras"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Quemaduras" />
+            <item
+                android:id="@+id/infecciones"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Infecciones" />
+            <item
+                android:id="@+id/alergias"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Alergias agudas" />
+            <item
+                android:id="@+id/hemorragias"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Hemorragias" />
+        </menu>
+    </item>
+
+    <item android:title="Sintomas">
+        <menu>
+            <item
+                android:id="@+id/cabeza"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Dolor de cabeza" />
+            <item
+                android:id="@+id/cuerpo"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Dolor de las articulaciones" />
+            <item
+                android:id="@+id/estomago"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Dolor de estómago" />
+            <item
+                android:id="@+id/oido"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Dolor de oido" />
+            <item
+                android:id="@+id/vision"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Vision Borrosa" />
+            <item
+                android:id="@+id/piel"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Irritaciones en la piel" />
+        </menu>
+    </item>
+
+    <item android:title="Configuración">
+        <menu>
+            <item
+                android:id="@+id/cambiar_datos"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Modificar Datos Personales" />
+            <item
+                android:id="@+id/cerrar"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Cerrar Sesión" />
+
+        </menu>
+    </item>
+
+</menu>

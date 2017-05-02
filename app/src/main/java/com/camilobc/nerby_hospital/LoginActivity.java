@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 //        t_acudiente = prefs.getString("tacudiente", "notacudiente");
 
         if(prefs.getInt("login", -1) == 1) {
-            intent = new Intent(LoginActivity.this, Mapa1Activity.class);
+            intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
             intent.putExtra("sexo", sexo);
             intent.putExtra("sangre", sangre);
             intent.putExtra("eps", EPS);
@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
 //                if(eCorreo.getText().toString().equals(scorreo)){
                     editor.putInt("login",1);
                     editor.commit();
-//                    intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
+                    intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
                     intent.putExtra("sangre", sangre);
                     intent.putExtra("sexo", sexo);
                     intent.putExtra("eps", EPS);
