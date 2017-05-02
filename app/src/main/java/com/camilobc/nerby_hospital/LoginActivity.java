@@ -15,8 +15,8 @@ public class LoginActivity extends AppCompatActivity {
     Intent intent;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
-    EditText correo, contrasena;
-    Button iniciar, registrar, emergencia;
+    EditText eCorreo, eContrasena;
+    Button bIniciar, bRegistrar, emergencia;
     String sangre, EPS, nombre, documento, scorreo, scontrasena, alergia, enfermedad, t_acudiente, sexo;
     //    Bitmap foto_perfil;
 
@@ -35,65 +35,69 @@ public class LoginActivity extends AppCompatActivity {
         nombre = prefs.getString("nombre", "nonombre");
         documento = prefs.getString("documento", "nodocumento");
         scorreo = prefs.getString("correo", "nocorreo");
-        scontrasena = prefs.getString("contrasena", "nocontrasena");
-        alergia = prefs.getString("alergias", "noalergias");
-        enfermedad = prefs.getString("enfermedades", "noenfermedades");
-        t_acudiente = prefs.getString("tacudiente", "notacudiente");
+        scontrasena = prefs.getString("pass", "nopass");
+//        alergia = prefs.getString("alergias", "noalergias");
+//        enfermedad = prefs.getString("enfermedades", "noenfermedades");
+//        t_acudiente = prefs.getString("tacudiente", "notacudiente");
 
         if(prefs.getInt("login", -1) == 1) {
-            intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
+            intent = new Intent(LoginActivity.this, Mapa1Activity.class);
             intent.putExtra("sexo", sexo);
             intent.putExtra("sangre", sangre);
             intent.putExtra("eps", EPS);
             intent.putExtra("nombre", nombre);
             intent.putExtra("documento", documento);
             intent.putExtra("correo", scorreo);
-            intent.putExtra("contrasena", scontrasena);
-            intent.putExtra("alergias", alergia);
-            intent.putExtra("enfermedades", enfermedad);
-            intent.putExtra("tacudiente", t_acudiente);
+            intent.putExtra("pass", scontrasena);
+//            intent.putExtra("alergias", alergia);
+//            intent.putExtra("enfermedades", enfermedad);
+//            intent.putExtra("tacudiente", t_acudiente);
 //            intent.putExtra("data", foto_perfil);
 
             startActivity(intent);
             finish();
         }
 
-        correo = (EditText) findViewById(R.id.edcorreo);
-        contrasena = (EditText) findViewById(R.id.econtrasena);
-        iniciar = (Button) findViewById(R.id.biniciar);
-        registrar = (Button) findViewById(R.id.bregistrese);
+        eCorreo = (EditText) findViewById(R.id.edcorreo);
+        eContrasena = (EditText) findViewById(R.id.econtrasena);
+        bIniciar = (Button) findViewById(R.id.biniciar);
+        bRegistrar = (Button) findViewById(R.id.bregistrese);
 
-        registrar.setOnClickListener(new View.OnClickListener(){
+        bRegistrar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 intent = new Intent(LoginActivity.this ,RegistroActivity.class);
                 startActivityForResult(intent, 1234);
             }
         });
-        iniciar.setOnClickListener(new View.OnClickListener(){
+        bIniciar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if(correo.getText().toString().equals("") || contrasena.getText().toString().equals("")){
+                if(eCorreo.getText().toString().equals("") || eContrasena.getText().toString().equals("")){
                     Toast.makeText(getApplicationContext(),"Llene los campos requeridos",Toast.LENGTH_SHORT).show();
-                }else if(!(correo.getText().toString().equals(scorreo) && contrasena.getText().toString().equals(scontrasena))){
-                    Toast.makeText(getApplicationContext(),"Usuario invalido",Toast.LENGTH_SHORT).show();
-                }else if(correo.getText().toString().equals(scorreo) && contrasena.getText().toString().equals(scontrasena)){
+                }else if(!(eCorreo.getText().toString().equals(scorreo) && eContrasena.getText().toString().equals(scontrasena))) {
+                    Toast.makeText(getApplicationContext(), "Usuario invalido", Toast.LENGTH_SHORT).show();
+                } else if(eCorreo.getText().toString().equals(scorreo) && eContrasena.getText().toString().equals(scontrasena)){
+//                if(eCorreo.getText().toString().equals(scorreo)){
                     editor.putInt("login",1);
                     editor.commit();
-                    intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
+//                    intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
                     intent.putExtra("sangre", sangre);
                     intent.putExtra("sexo", sexo);
                     intent.putExtra("eps", EPS);
                     intent.putExtra("nombre", nombre);
                     intent.putExtra("documento", documento);
                     intent.putExtra("correo", scorreo);
-                    intent.putExtra("contrasena", scontrasena);
-                    intent.putExtra("alergias", alergia);
-                    intent.putExtra("enfermedades", enfermedad);
-                    intent.putExtra("tacudiente", t_acudiente);
+//                    intent.putExtra("alergias", alergia);
+//                    intent.putExtra("enfermedades", enfermedad);
+//                    intent.putExtra("tacudiente", t_acudiente);
 //                    intent.putExtra("data", foto_perfil);
                     startActivity(intent);
                     finish();
+                }
+                else
+                {
+                    Toast.makeText(LoginActivity.this, "El usuario ingresado no existe", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -109,10 +113,10 @@ public class LoginActivity extends AppCompatActivity {
             nombre = data.getExtras().getString("nombre");
             documento = data.getExtras().getString("documento");
             scorreo = data.getExtras().getString("correo");
-            scontrasena = data.getExtras().getString("contrasena");
-            alergia = data.getExtras().getString("alergias");
-            enfermedad = data.getExtras().getString("enfermedades");
-            t_acudiente = data.getExtras().getString("tacudiente");
+            scontrasena = data.getExtras().getString("pass");
+//            alergia = data.getExtras().getString("alergias");
+//            enfermedad = data.getExtras().getString("enfermedades");
+//            t_acudiente = data.getExtras().getString("tacudiente");
 
             editor.putString("sexo", sexo);
             editor.putString("sangre", sangre);
@@ -120,10 +124,11 @@ public class LoginActivity extends AppCompatActivity {
             editor.putString("nombre", nombre);
             editor.putString("documento", documento);
             editor.putString("correo", scorreo);
-            editor.putString("contrasena", scontrasena);
-            editor.putString("alergias", alergia);
-            editor.putString("enfermedades", enfermedad);
-            editor.putString("tacudiente", t_acudiente);
+            editor.putString("pass", scontrasena);
+            editor.commit();
+//            editor.putString("alergias", alergia);
+//            editor.putString("enfermedades", enfermedad);
+//            editor.putString("tacudiente", t_acudiente);
         }else{
             if(requestCode==1234 && resultCode==RESULT_CANCELED){
                 Toast.makeText(this, "Error en Registro", Toast.LENGTH_SHORT).show();

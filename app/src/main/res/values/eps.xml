@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="EPS">
+        <item>Colsanitas</item>
+        <item>Sura</item>
+        <item>SaludCoop</item>
+        <item>Coomeva</item>
+        <item>CafeSalud</item>
+        <item>Nueva EPS</item>
+        <item>Savia Salud</item>
+    </string-array>
+</resources>
