@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
 
         sexo = prefs.getString("sexo", "nosexo");
         sangre = prefs.getString("sangre", "nosangre");
-        EPS = prefs.getString("eps", "noeps");
+//        EPS = prefs.getString("eps", "noeps");
         nombre = prefs.getString("nombre", "nonombre");
         documento = prefs.getString("documento", "nodocumento");
         scorreo = prefs.getString("correo", "nocorreo");
@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
             intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
             intent.putExtra("sexo", sexo);
             intent.putExtra("sangre", sangre);
-            intent.putExtra("eps", EPS);
+//            intent.putExtra("eps", EPS);
             intent.putExtra("nombre", nombre);
             intent.putExtra("documento", documento);
             intent.putExtra("correo", scorreo);
@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                     intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
                     intent.putExtra("sangre", sangre);
                     intent.putExtra("sexo", sexo);
-                    intent.putExtra("eps", EPS);
+//                    intent.putExtra("eps", EPS);
                     intent.putExtra("nombre", nombre);
                     intent.putExtra("documento", documento);
                     intent.putExtra("correo", scorreo);
@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
 
             sexo = data.getExtras().getString("sexo");
             sangre = data.getExtras().getString("sangre");
-            EPS = data.getExtras().getString("eps");
+//            EPS = data.getExtras().getString("eps");
             nombre = data.getExtras().getString("nombre");
             documento = data.getExtras().getString("documento");
             scorreo = data.getExtras().getString("correo");
@@ -120,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
 
             editor.putString("sexo", sexo);
             editor.putString("sangre", sangre);
-            editor.putString("eps", EPS);
+//            editor.putString("eps", EPS);
             editor.putString("nombre", nombre);
             editor.putString("documento", documento);
             editor.putString("correo", scorreo);

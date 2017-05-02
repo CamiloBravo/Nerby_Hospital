@@ -5,20 +5,20 @@ package com.camilobc.nerby_hospital;
  */
 
 public class Usuarios {
-    String documento, nombre, telefono, correo, sexo, sangre, eps, alergias, enfermedades, acudiente, tel_acudiente;
+    String documento, nombre, telefono, correo, sexo, sangre, alergias, enfermedades, acudiente, tel_acudiente;
 
     public Usuarios(){
 
     }
 
-    public Usuarios(String documento, String nombre, String telefono, String correo, String sexo, String sangre, String eps, String alergias, String enfermedades, String acudiente, String tel_acudiente) {
+    public Usuarios(String documento, String nombre, String telefono, String correo, String sexo, String sangre, String alergias, String enfermedades, String acudiente, String tel_acudiente) {
         this.documento = documento;
         this.nombre = nombre;
         this.telefono = telefono;
         this.correo = correo;
         this.sexo = sexo;
         this.sangre = sangre;
-        this.eps = eps;
+//        this.eps = eps;
         this.alergias = alergias;
         this.enfermedades = enfermedades;
         this.acudiente = acudiente;
@@ -59,13 +59,13 @@ public class Usuarios {
         this.alergias = alergias;
     }
 
-    public void setEps(String eps) {
-        this.eps = eps;
-    }
-
-    public String getEps() {
-        return eps;
-    }
+//    public void setEps(String eps) {
+//        this.eps = eps;
+//    }
+//
+//    public String getEps() {
+//        return eps;
+//    }
 
     public void setSangre(String sangre) {
         this.sangre = sangre;

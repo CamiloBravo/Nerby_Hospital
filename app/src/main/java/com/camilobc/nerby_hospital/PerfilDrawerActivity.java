@@ -43,17 +43,17 @@ public class PerfilDrawerActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        ListaSaludcoop = (Spinner) findViewById(R.id.ListaSaludcoop);
-//        items = getResources().getStringArray(R.array.HospitalesSaludCoop);
-//        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_spinner_item,items);
-//        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_item);
-//        ListaSaludcoop.setAdapter(adaptador);
+        ListaSaludcoop = (Spinner) findViewById(R.id.ListaSaludcoop);
+        items = getResources().getStringArray(R.array.EPS);
+        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_spinner_item,items);
+        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ListaSaludcoop.setAdapter(adaptador);
 
         Bundle extras = getIntent().getExtras();
 
         sexo = extras.getString("sexo");
         sangre = extras.getString("sangre");
-        EPS = extras.getString("eps");
+//        EPS = extras.getString("eps");
         snombre = extras.getString("nombre");
         documento = extras.getString("documento");
         scorreo = extras.getString("correo");
@@ -76,12 +76,12 @@ public class PerfilDrawerActivity extends AppCompatActivity
         tsangre_perfil = (TextView) findViewById(R.id.tsangre_perfil);
         tcorreo_perfil = (TextView) findViewById(R.id.tcorreo_perfil);
         tcedula_perfil = (TextView) findViewById(R.id.tcedula_perfil);
-        teps_perfil = (TextView) findViewById(R.id.tEPS_perfil);
+//        teps_perfil = (TextView) findViewById(R.id.tEPS_perfil);
         tnombre_perfil.setText(snombre);
         tsangre_perfil.setText(sangre);
         tcorreo_perfil.setText(scorreo);
         tcedula_perfil.setText(documento);
-        teps_perfil.setText(EPS);
+//        teps_perfil.setText(EPS);
 
         binfomapa.setOnClickListener(new View.OnClickListener() {
             @Override

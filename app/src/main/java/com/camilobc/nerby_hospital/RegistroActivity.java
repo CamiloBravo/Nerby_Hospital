@@ -38,14 +38,14 @@ public class RegistroActivity extends AppCompatActivity {
         adaptador.setDropDownViewResource(android.R.layout.simple_spinner_item);
         ListaDesple.setAdapter(adaptador);
 
-        ListaDesple2 = (Spinner) findViewById(R.id.ListaDesple2);
-        items2 = getResources().getStringArray(R.array.EPS);
-        ArrayAdapter<String> adaptador2 = new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_spinner_item,items2);
-        adaptador2.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        ListaDesple2.setAdapter(adaptador2);
+//        ListaDesple2 = (Spinner) findViewById(R.id.ListaDesple2);
+//        items2 = getResources().getStringArray(R.array.EPS);
+//        ArrayAdapter<String> adaptador2 = new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_spinner_item,items2);
+//        adaptador2.setDropDownViewResource(android.R.layout.simple_spinner_item);
+//        ListaDesple2.setAdapter(adaptador2);
 
 //        sangre = ListaDesple.getSelectedItem().toString();
-        EPS = ListaDesple2.getSelectedItem().toString();
+//        EPS = ListaDesple2.getSelectedItem().toString();
 
         sangre = ListaDesple.getItemAtPosition(ListaDesple.getSelectedItemPosition()).toString();
 
@@ -106,14 +106,14 @@ public class RegistroActivity extends AppCompatActivity {
                 intent.putExtra("nombre", eNombre.getText().toString());
                 intent.putExtra("documento", eDocumento.getText().toString());
                 intent.putExtra("sangre", sangre);
-                intent.putExtra("eps", EPS);
+//                intent.putExtra("eps", EPS);
                 intent.putExtra("sexo", sexo);
                 intent.putExtra("pass", eContrasena.getText().toString());
                 setResult(RESULT_OK, intent);
                 finish();
 
                 myRef = database.getReference("Usuarios").child(String.valueOf(documento));
-                usuarios = new Usuarios(String.valueOf(documento),nombre,telefono,correo, sexo, sangre, EPS, alergias, enfermedades, acudiente, telacudiente);
+                usuarios = new Usuarios(String.valueOf(documento),nombre,telefono,correo, sexo, sangre, alergias, enfermedades, acudiente, telacudiente);
                 myRef.setValue(usuarios);
                 break;
             case R.id.bcancelar:
