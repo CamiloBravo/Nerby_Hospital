@@ -25,12 +25,12 @@ public class PerfilDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Intent intent;
-    TextView tnombre_perfil, tcorreo_perfil, tsangre_perfil, teps_perfil, tcedula_perfil;
-    String sangre, EPS, snombre, documento, scorreo, scontrasena, alergia, enfermedad, t_acudiente, sexo;
-    Spinner ListaSaludcoop;
+    TextView tnombre_perfil, tcorreo_perfil, tsangre_perfil, tcedula_perfil;
+    String sangre, snombre, documento, scorreo, scontrasena, alergia, enfermedad, t_acudiente, sexo;
+    Spinner ListaSalud;
     RadioButton rMas, rFem;
     String[] items;
-    Button binfomapa, binfohosp;
+    Button binfohosp;
     ImageView iusuario;
     //    Bitmap imageBitmap;
     SharedPreferences prefs;
@@ -43,17 +43,16 @@ public class PerfilDrawerActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ListaSaludcoop = (Spinner) findViewById(R.id.ListaSaludcoop);
+        ListaSalud = (Spinner) findViewById(R.id.ListaEPS);
         items = getResources().getStringArray(R.array.EPS);
         ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_spinner_item,items);
         adaptador.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        ListaSaludcoop.setAdapter(adaptador);
+        ListaSalud.setAdapter(adaptador);
 
         Bundle extras = getIntent().getExtras();
 
         sexo = extras.getString("sexo");
         sangre = extras.getString("sangre");
-//        EPS = extras.getString("eps");
         snombre = extras.getString("nombre");
         documento = extras.getString("documento");
         scorreo = extras.getString("correo");
@@ -69,21 +68,17 @@ public class PerfilDrawerActivity extends AppCompatActivity
         prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
         editor = prefs.edit();
 
-
-        binfomapa = (Button) findViewById(R.id.binfomapa);
         binfohosp = (Button) findViewById(R.id.binfohospi);
         tnombre_perfil = (TextView) findViewById(R.id.tnombre_perfil);
         tsangre_perfil = (TextView) findViewById(R.id.tsangre_perfil);
         tcorreo_perfil = (TextView) findViewById(R.id.tcorreo_perfil);
         tcedula_perfil = (TextView) findViewById(R.id.tcedula_perfil);
-//        teps_perfil = (TextView) findViewById(R.id.tEPS_perfil);
         tnombre_perfil.setText(snombre);
         tsangre_perfil.setText(sangre);
         tcorreo_perfil.setText(scorreo);
         tcedula_perfil.setText(documento);
-//        teps_perfil.setText(EPS);
 
-        binfomapa.setOnClickListener(new View.OnClickListener() {
+        binfohosp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PerfilDrawerActivity.this, Mapa1Activity.class);
@@ -96,18 +91,6 @@ public class PerfilDrawerActivity extends AppCompatActivity
             }
         });
 
-        binfohosp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent = new Intent(PerfilDrawerActivity.this, SanVicenteDrawerActivity.class);
-//                intent.putExtra("nombre", snombre);
-//                intent.putExtra("documento", documento);
-//                intent.putExtra("sangre", sangre);
-//                intent.putExtra("sexo", sexo);
-//                startActivity(intent);
-//                finish();
-            }
-        });
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {

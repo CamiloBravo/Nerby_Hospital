@@ -16,7 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class RegistroActivity extends AppCompatActivity {
 
     EditText eDocumento, eNombre, eTelefono, eCorreo, eAlergias, eEnfermedades, eAcudiente, eTelAcudiente, eContrasena, eR_contrasena;
-    String  sangre2, sangre, EPS, documento, nombre, telefono, correo, sexo, alergias, enfermedades, acudiente, telacudiente, contrasena, r_contrasena;
+    String  sangre2, sangre, documento, nombre, telefono, correo, sexo, alergias, enfermedades, acudiente, telacudiente;
     RadioButton masculino, femenino;
     Spinner ListaDesple, ListaDesple2;
     String[] items, items2;
@@ -38,15 +38,7 @@ public class RegistroActivity extends AppCompatActivity {
         adaptador.setDropDownViewResource(android.R.layout.simple_spinner_item);
         ListaDesple.setAdapter(adaptador);
 
-//        ListaDesple2 = (Spinner) findViewById(R.id.ListaDesple2);
-//        items2 = getResources().getStringArray(R.array.EPS);
-//        ArrayAdapter<String> adaptador2 = new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_spinner_item,items2);
-//        adaptador2.setDropDownViewResource(android.R.layout.simple_spinner_item);
-//        ListaDesple2.setAdapter(adaptador2);
-
 //        sangre = ListaDesple.getSelectedItem().toString();
-//        EPS = ListaDesple2.getSelectedItem().toString();
-
         sangre = ListaDesple.getItemAtPosition(ListaDesple.getSelectedItemPosition()).toString();
 
 
@@ -75,14 +67,9 @@ public class RegistroActivity extends AppCompatActivity {
         enfermedades=eEnfermedades.getText().toString();
         acudiente=eAcudiente.getText().toString();
         telacudiente=eTelAcudiente.getText().toString();
-//        contrasena=eContrasena.getText().toString();
-//        r_contrasena=eR_contrasena.getText().toString();
 
         switch (idB){
             case R.id.benviar:
-//                Intent intent = new Intent(RegistroActivity.this, LoginActivity.class);
-
-//                startActivity(intent);
                 if(masculino.isChecked()){
                         sexo="Masculino";
                     }else if(femenino.isChecked()){
@@ -93,20 +80,12 @@ public class RegistroActivity extends AppCompatActivity {
 ////                    setResult(RESULT_CANCELED, intent);
 //                }
 
-//                intent.putExtra("sexo", sexo);
-//                    intent.putExtra("sangre", sangre);
-//                    intent.putExtra("eps", EPS);
-//                    intent.putExtra("nombre", eNombre.getText().toString());
-//                    intent.putExtra("documento", eDocumento.getText().toString());
-//                    intent.putExtra("correo", eCorreo.getText().toString());
-//                    intent.putExtra("contrasena", eContrasena.getText().toString());
 
                 Intent intent = new Intent();
                 intent.putExtra("correo", eCorreo.getText().toString());
                 intent.putExtra("nombre", eNombre.getText().toString());
                 intent.putExtra("documento", eDocumento.getText().toString());
                 intent.putExtra("sangre", sangre);
-//                intent.putExtra("eps", EPS);
                 intent.putExtra("sexo", sexo);
                 intent.putExtra("pass", eContrasena.getText().toString());
                 setResult(RESULT_OK, intent);

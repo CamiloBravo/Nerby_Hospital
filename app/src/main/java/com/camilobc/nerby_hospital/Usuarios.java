@@ -18,7 +18,6 @@ public class Usuarios {
         this.correo = correo;
         this.sexo = sexo;
         this.sangre = sangre;
-//        this.eps = eps;
         this.alergias = alergias;
         this.enfermedades = enfermedades;
         this.acudiente = acudiente;
@@ -58,14 +57,6 @@ public class Usuarios {
     public void setAlergias(String alergias) {
         this.alergias = alergias;
     }
-
-//    public void setEps(String eps) {
-//        this.eps = eps;
-//    }
-//
-//    public String getEps() {
-//        return eps;
-//    }
 
     public void setSangre(String sangre) {
         this.sangre = sangre;

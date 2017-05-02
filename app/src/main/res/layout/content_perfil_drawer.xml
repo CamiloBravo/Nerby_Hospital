@@ -40,7 +40,6 @@
                     android:layout_weight="2"
                     android:textAlignment="center"
                     android:textColor="@color/black" />
-
                 <TextView
                     android:id="@+id/tcorreo_perfil"
                     android:layout_width="match_parent"
@@ -48,7 +47,6 @@
                     android:layout_weight="2"
                     android:textAlignment="center"
                     android:textColor="@color/black" />
-
                 <TextView
                     android:id="@+id/tcedula_perfil"
                     android:layout_width="match_parent"
@@ -56,17 +54,8 @@
                     android:layout_weight="2"
                     android:textAlignment="center"
                     android:textColor="@color/black" />
-
                 <TextView
                     android:id="@+id/tsangre_perfil"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"
-                    android:textAlignment="center"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:id="@+id/tEPS_perfil"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="2"
@@ -85,12 +74,13 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:textAlignment="center"
+            android:textSize="20dp"
             android:textColor="@color/black"
             android:layout_marginTop="20dp"
-            android:text="Estos son los hospitales disponibles, elija uno:"/>
+            android:text="Elija la EPS a la cual es afiliado:"/>
         <Spinner
-            android:id="@+id/ListaSaludcoop"
-            android:layout_width="300dp"
+            android:id="@+id/ListaEPS"
+            android:layout_width="200dp"
             android:layout_gravity="center"
             android:layout_height="0dp"
             android:textAlignment="center"
@@ -113,15 +103,6 @@
                 android:layout_marginTop="30dp"
                 android:textColor="@color/white"
                 android:text="Ver Información"
-                android:background="@drawable/boton_redonred"/>
-            <Button
-                android:id="@+id/binfomapa"
-                android:layout_width="150dp"
-                android:layout_height="45dp"
-                android:layout_gravity="center"
-                android:textColor="@color/white"
-                android:layout_marginTop="30dp"
-                android:text="Ver en el Mapa"
                 android:background="@drawable/boton_redonred"/>
         </LinearLayout>
 

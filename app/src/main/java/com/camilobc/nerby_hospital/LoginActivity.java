@@ -17,7 +17,7 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     EditText eCorreo, eContrasena;
     Button bIniciar, bRegistrar, emergencia;
-    String sangre, EPS, nombre, documento, scorreo, scontrasena, alergia, enfermedad, t_acudiente, sexo;
+    String sangre, nombre, documento, scorreo, scontrasena, sexo;
     //    Bitmap foto_perfil;
 
     @Override
@@ -31,28 +31,19 @@ public class LoginActivity extends AppCompatActivity {
 
         sexo = prefs.getString("sexo", "nosexo");
         sangre = prefs.getString("sangre", "nosangre");
-//        EPS = prefs.getString("eps", "noeps");
         nombre = prefs.getString("nombre", "nonombre");
         documento = prefs.getString("documento", "nodocumento");
         scorreo = prefs.getString("correo", "nocorreo");
         scontrasena = prefs.getString("pass", "nopass");
-//        alergia = prefs.getString("alergias", "noalergias");
-//        enfermedad = prefs.getString("enfermedades", "noenfermedades");
-//        t_acudiente = prefs.getString("tacudiente", "notacudiente");
 
         if(prefs.getInt("login", -1) == 1) {
             intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
             intent.putExtra("sexo", sexo);
             intent.putExtra("sangre", sangre);
-//            intent.putExtra("eps", EPS);
             intent.putExtra("nombre", nombre);
             intent.putExtra("documento", documento);
             intent.putExtra("correo", scorreo);
             intent.putExtra("pass", scontrasena);
-//            intent.putExtra("alergias", alergia);
-//            intent.putExtra("enfermedades", enfermedad);
-//            intent.putExtra("tacudiente", t_acudiente);
-//            intent.putExtra("data", foto_perfil);
 
             startActivity(intent);
             finish();
@@ -78,20 +69,16 @@ public class LoginActivity extends AppCompatActivity {
                 }else if(!(eCorreo.getText().toString().equals(scorreo) && eContrasena.getText().toString().equals(scontrasena))) {
                     Toast.makeText(getApplicationContext(), "Usuario invalido", Toast.LENGTH_SHORT).show();
                 } else if(eCorreo.getText().toString().equals(scorreo) && eContrasena.getText().toString().equals(scontrasena)){
-//                if(eCorreo.getText().toString().equals(scorreo)){
+
                     editor.putInt("login",1);
                     editor.commit();
                     intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
                     intent.putExtra("sangre", sangre);
                     intent.putExtra("sexo", sexo);
-//                    intent.putExtra("eps", EPS);
                     intent.putExtra("nombre", nombre);
                     intent.putExtra("documento", documento);
                     intent.putExtra("correo", scorreo);
-//                    intent.putExtra("alergias", alergia);
-//                    intent.putExtra("enfermedades", enfermedad);
-//                    intent.putExtra("tacudiente", t_acudiente);
-//                    intent.putExtra("data", foto_perfil);
+
                     startActivity(intent);
                     finish();
                 }
@@ -109,26 +96,18 @@ public class LoginActivity extends AppCompatActivity {
 
             sexo = data.getExtras().getString("sexo");
             sangre = data.getExtras().getString("sangre");
-//            EPS = data.getExtras().getString("eps");
             nombre = data.getExtras().getString("nombre");
             documento = data.getExtras().getString("documento");
             scorreo = data.getExtras().getString("correo");
             scontrasena = data.getExtras().getString("pass");
-//            alergia = data.getExtras().getString("alergias");
-//            enfermedad = data.getExtras().getString("enfermedades");
-//            t_acudiente = data.getExtras().getString("tacudiente");
 
             editor.putString("sexo", sexo);
             editor.putString("sangre", sangre);
-//            editor.putString("eps", EPS);
             editor.putString("nombre", nombre);
             editor.putString("documento", documento);
             editor.putString("correo", scorreo);
             editor.putString("pass", scontrasena);
             editor.commit();
-//            editor.putString("alergias", alergia);
-//            editor.putString("enfermedades", enfermedad);
-//            editor.putString("tacudiente", t_acudiente);
         }else{
             if(requestCode==1234 && resultCode==RESULT_CANCELED){
                 Toast.makeText(this, "Error en Registro", Toast.LENGTH_SHORT).show();
