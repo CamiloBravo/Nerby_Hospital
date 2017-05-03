@@ -19,9 +19,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.net.Uri;
 
-public class SaludCoopDrawerActivity extends AppCompatActivity
+public class SanvicenteDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Intent intent;
@@ -30,12 +29,12 @@ public class SaludCoopDrawerActivity extends AppCompatActivity
     SharedPreferences.Editor editor;
     public SectionsPagerAdapter mSectionsPagerAdapter;
     public ViewPager mViewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_salud_coop_drawer);
+        setContentView(R.layout.activity_sanvicente_drawer);
 
-//        telefono = "0345711516";
         Bundle extras=getIntent().getExtras();
         sangre = extras.getString("sangre");
         snombre = extras.getString("nombre");
@@ -54,7 +53,6 @@ public class SaludCoopDrawerActivity extends AppCompatActivity
         tabLayout.setupWithViewPager(mViewPager);
 
 
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -62,11 +60,8 @@ public class SaludCoopDrawerActivity extends AppCompatActivity
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-////                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-////                        .setAction("Action", null).show();
-////                Intent i = new Intent(Intent.ACTION_CALL);
-////                i.setData(Uri.parse("tel:123456789"));
-////                startActivity(i);
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
 //            }
 //        });
 
@@ -91,9 +86,9 @@ public class SaludCoopDrawerActivity extends AppCompatActivity
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position){
-                case 0: HospSaludcoopFragment tab1 = new HospSaludcoopFragment();
+                case 0: HospSanvicenteFragment tab1 = new HospSanvicenteFragment();
                     return tab1;
-                case 1: MapaSaludcoopFragment tab2 = new MapaSaludcoopFragment();
+                case 1: MapaSanvicenteFragment tab2 = new MapaSanvicenteFragment();
                     return tab2;
                 default: return null;
             }
@@ -130,7 +125,7 @@ public class SaludCoopDrawerActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.salud_coop_drawer, menu);
+        getMenuInflater().inflate(R.menu.sanvicente_drawer, menu);
         return true;
     }
 
@@ -145,7 +140,7 @@ public class SaludCoopDrawerActivity extends AppCompatActivity
         if (id == R.id.cerrar_sesion) {
             editor.putInt("login",-1);
             editor.commit();
-            intent = new Intent(SaludCoopDrawerActivity.this, LoginActivity.class);
+            intent = new Intent(SanvicenteDrawerActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         }
@@ -160,14 +155,14 @@ public class SaludCoopDrawerActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.accidente) {
-            Intent intent = new Intent(SaludCoopDrawerActivity.this, MapasDrawerActivity.class);
+            Intent intent = new Intent(SanvicenteDrawerActivity.this, MapasDrawerActivity.class);
             intent.putExtra("nombre", snombre);
             intent.putExtra("documento", documento);
             intent.putExtra("sangre", sangre);
             intent.putExtra("correo", scorreo);
             startActivity(intent);
         } else if (id == R.id.quemaduras) {
-            Intent intent = new Intent(SaludCoopDrawerActivity.this, MapasDrawerActivity.class);
+            Intent intent = new Intent(SanvicenteDrawerActivity.this, MapasDrawerActivity.class);
             intent.putExtra("nombre", snombre);
             intent.putExtra("documento", documento);
             intent.putExtra("sangre", sangre);
@@ -175,7 +170,7 @@ public class SaludCoopDrawerActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.infecciones) {
-            Intent intent = new Intent(SaludCoopDrawerActivity.this, MapasDrawerActivity.class);
+            Intent intent = new Intent(SanvicenteDrawerActivity.this, MapasDrawerActivity.class);
             intent.putExtra("nombre", snombre);
             intent.putExtra("documento", documento);
             intent.putExtra("sangre", sangre);
@@ -183,7 +178,7 @@ public class SaludCoopDrawerActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.alergias) {
-            Intent intent = new Intent(SaludCoopDrawerActivity.this, MapasDrawerActivity.class);
+            Intent intent = new Intent(SanvicenteDrawerActivity.this, MapasDrawerActivity.class);
             intent.putExtra("nombre", snombre);
             intent.putExtra("documento", documento);
             intent.putExtra("sangre", sangre);
@@ -191,7 +186,7 @@ public class SaludCoopDrawerActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.hemorragias) {
-            Intent intent = new Intent(SaludCoopDrawerActivity.this, MapasDrawerActivity.class);
+            Intent intent = new Intent(SanvicenteDrawerActivity.this, MapasDrawerActivity.class);
             intent.putExtra("nombre", snombre);
             intent.putExtra("documento", documento);
             intent.putExtra("sangre", sangre);
@@ -199,7 +194,7 @@ public class SaludCoopDrawerActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.cabeza) {
-            Intent intent = new Intent(SaludCoopDrawerActivity.this, MapasDrawerActivity.class);
+            Intent intent = new Intent(SanvicenteDrawerActivity.this, MapasDrawerActivity.class);
             intent.putExtra("nombre", snombre);
             intent.putExtra("documento", documento);
             intent.putExtra("sangre", sangre);
@@ -207,7 +202,7 @@ public class SaludCoopDrawerActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.cuerpo) {
-            Intent intent = new Intent(SaludCoopDrawerActivity.this, MapasDrawerActivity.class);
+            Intent intent = new Intent(SanvicenteDrawerActivity.this, MapasDrawerActivity.class);
             intent.putExtra("nombre", snombre);
             intent.putExtra("documento", documento);
             intent.putExtra("sangre", sangre);
@@ -215,7 +210,7 @@ public class SaludCoopDrawerActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.estomago) {
-            Intent intent = new Intent(SaludCoopDrawerActivity.this, MapasDrawerActivity.class);
+            Intent intent = new Intent(SanvicenteDrawerActivity.this, MapasDrawerActivity.class);
             intent.putExtra("nombre", snombre);
             intent.putExtra("documento", documento);
             intent.putExtra("sangre", sangre);
@@ -223,7 +218,7 @@ public class SaludCoopDrawerActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.oido) {
-            Intent intent = new Intent(SaludCoopDrawerActivity.this, MapasDrawerActivity.class);
+            Intent intent = new Intent(SanvicenteDrawerActivity.this, MapasDrawerActivity.class);
             intent.putExtra("nombre", snombre);
             intent.putExtra("documento", documento);
             intent.putExtra("sangre", sangre);
@@ -231,7 +226,7 @@ public class SaludCoopDrawerActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.vision) {
-            Intent intent = new Intent(SaludCoopDrawerActivity.this, MapasDrawerActivity.class);
+            Intent intent = new Intent(SanvicenteDrawerActivity.this, MapasDrawerActivity.class);
             intent.putExtra("nombre", snombre);
             intent.putExtra("documento", documento);
             intent.putExtra("sangre", sangre);
@@ -239,7 +234,7 @@ public class SaludCoopDrawerActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.piel) {
-            Intent intent = new Intent(SaludCoopDrawerActivity.this, MapasDrawerActivity.class);
+            Intent intent = new Intent(SanvicenteDrawerActivity.this, MapasDrawerActivity.class);
             intent.putExtra("nombre", snombre);
             intent.putExtra("documento", documento);
             intent.putExtra("sangre", sangre);
@@ -247,7 +242,7 @@ public class SaludCoopDrawerActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.miperfil) {
-            Intent intent = new Intent(SaludCoopDrawerActivity.this, PerfilDrawerActivity.class);
+            Intent intent = new Intent(SanvicenteDrawerActivity.this, PerfilDrawerActivity.class);
             intent.putExtra("nombre", snombre);
             intent.putExtra("documento", documento);
             intent.putExtra("sangre", sangre);
@@ -258,7 +253,7 @@ public class SaludCoopDrawerActivity extends AppCompatActivity
         } else if (id == R.id.cerrar) {
             editor.putInt("login",-1);
             editor.commit();
-            intent = new Intent(SaludCoopDrawerActivity.this, LoginActivity.class);
+            intent = new Intent(SanvicenteDrawerActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         }

@@ -64,6 +64,10 @@
         <activity
             android:name=".Leon13DrawerActivity"
             android:label="@string/title_activity_leon13_drawer"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SanvicenteDrawerActivity"
+            android:label="@string/title_activity_sanvicente_drawer"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

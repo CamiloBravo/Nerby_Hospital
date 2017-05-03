@@ -37,6 +37,7 @@
             android:textColor="#9f3730"
             android:textColorHint="#9f3730"
             android:textAlignment="center"
+            android:inputType="textEmailAddress"
             android:hint="Correo Electrónico"
             android:id="@+id/edcorreo"/>
         <EditText

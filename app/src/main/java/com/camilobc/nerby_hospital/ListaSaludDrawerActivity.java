@@ -82,7 +82,11 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
                     startActivity(intent);
                 }
                 if (position == 2) {
-                    Intent intent=new Intent(ListaSaludDrawerActivity.this, Mapa1Fragment.class);
+                    Intent intent=new Intent(ListaSaludDrawerActivity.this, SanvicenteDrawerActivity.class);
+                    intent.putExtra("nombre", snombre);
+                    intent.putExtra("documento", documento);
+                    intent.putExtra("sangre", sangre);
+                    intent.putExtra("correo", scorreo);
                     startActivity(intent);
                 }
 //                Intent intent=new Intent(ListActivity.this, HotelActivity.class);

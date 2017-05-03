@@ -103,14 +103,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1234 && resultCode==RESULT_OK){
 
-//            sexo = data.getExtras().getString("sexo");
             sangre = data.getExtras().getString("sangre");
             nombre = data.getExtras().getString("nombre");
             documento = data.getExtras().getString("documento");
             scorreo = data.getExtras().getString("correo");
             scontrasena = data.getExtras().getString("pass");
 
-//            editor.putString("sexo", sexo);
             editor.putString("sangre", sangre);
             editor.putString("nombre", nombre);
             editor.putString("documento", documento);
