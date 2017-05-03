@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Nerby_Hospital</string>
+    <string name="app_name">Nearby Hospital</string>
     <string name="usuario">Usuario</string>
     <string name="contrasena">Contraseña</string>
     <string name="iniciar">Iniciar Sesión</string>
