@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -18,7 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RegistroActivity"></activity>
+        <activity android:name=".RegistroActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,13 +40,30 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".Mapa1Activity"
-            android:label="@string/title_activity_mapa1">
-
-        </activity>
+            android:name=".Mapa1Fragment"
+            android:label="@string/title_activity_mapa1" />
         <activity
             android:name=".PerfilDrawerActivity"
             android:label="@string/title_activity_perfil_drawer"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ListaSaludDrawerActivity"
+            android:label="@string/title_activity_lista_salud_drawer"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SaludCoopDrawerActivity"
+            android:label="@string/title_activity_salud_coop_drawer"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MapasDrawerActivity"
+            android:label="@string/title_activity_mapas_drawer"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EmergenciaMapsActivity"
+            android:label="@string/title_activity_emergencia_maps" />
+        <activity
+            android:name=".Leon13DrawerActivity"
+            android:label="@string/title_activity_leon13_drawer"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

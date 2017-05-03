@@ -15,18 +15,14 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class Mapa1Activity extends FragmentActivity implements OnMapReadyCallback {
+public class Mapa1Fragment extends SupportMapFragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mapa1);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        getMapAsync(this);
     }
 
 
@@ -42,7 +38,7 @@ public class Mapa1Activity extends FragmentActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -57,16 +53,18 @@ public class Mapa1Activity extends FragmentActivity implements OnMapReadyCallbac
         uiSettings.setZoomControlsEnabled(true);
 
         mMap.setMyLocationEnabled(true);
-        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         // Add a marker in Sydney and move the camera
 
         LatLng leon13= new LatLng(6.266872, -75.565172);
-        mMap.addMarker(new MarkerOptions().position(leon13).title("Clinica Leon 13").snippet("Clinica").icon(BitmapDescriptorFactory.fromResource(R.drawable.hosp1)));
+//        mMap.addMarker(new MarkerOptions().position(leon13).title("Clinica Leon 13").snippet("Clinica").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(udea));
+        mMap.addMarker(new MarkerOptions().position(leon13).title("Clinica Leon 13").snippet("Clinica").icon(BitmapDescriptorFactory.fromResource(R.drawable.hosp3)));
+
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(leon13,15)); //entre mas pequeño el numero mas alto el mapa
 
         LatLng sanvicente= new LatLng(6.263865, -75.565188);
-        mMap.addMarker(new MarkerOptions().position(sanvicente).title("Hospital San Vicente").snippet("Hospital").icon(BitmapDescriptorFactory.fromResource(R.drawable.hosp2)));
+        mMap.addMarker(new MarkerOptions().position(sanvicente).title("Hospital San Vicente").snippet("Hospital").icon(BitmapDescriptorFactory.fromResource(R.drawable.hosp3)));
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(udea));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sanvicente,15)); //entre mas pequeño el numero mas alto el mapa
 

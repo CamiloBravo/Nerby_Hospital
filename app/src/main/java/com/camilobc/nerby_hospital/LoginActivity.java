@@ -16,7 +16,7 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
     EditText eCorreo, eContrasena;
-    Button bIniciar, bRegistrar, emergencia;
+    Button bIniciar, bRegistrar, bEmergencia;
     String sangre, nombre, documento, scorreo, scontrasena, sexo;
     //    Bitmap foto_perfil;
 
@@ -38,12 +38,12 @@ public class LoginActivity extends AppCompatActivity {
 
         if(prefs.getInt("login", -1) == 1) {
             intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
-            intent.putExtra("sexo", sexo);
+//            intent.putExtra("sexo", sexo);
             intent.putExtra("sangre", sangre);
             intent.putExtra("nombre", nombre);
             intent.putExtra("documento", documento);
             intent.putExtra("correo", scorreo);
-            intent.putExtra("pass", scontrasena);
+//            intent.putExtra("pass", scontrasena);
 
             startActivity(intent);
             finish();
@@ -53,6 +53,15 @@ public class LoginActivity extends AppCompatActivity {
         eContrasena = (EditText) findViewById(R.id.econtrasena);
         bIniciar = (Button) findViewById(R.id.biniciar);
         bRegistrar = (Button) findViewById(R.id.bregistrese);
+        bEmergencia = (Button) findViewById(R.id.bemergencia);
+
+        bEmergencia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(LoginActivity.this ,EmergenciaMapsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         bRegistrar.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -74,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.commit();
                     intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
                     intent.putExtra("sangre", sangre);
-                    intent.putExtra("sexo", sexo);
+//                    intent.putExtra("sexo", sexo);
                     intent.putExtra("nombre", nombre);
                     intent.putExtra("documento", documento);
                     intent.putExtra("correo", scorreo);
@@ -94,14 +103,14 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1234 && resultCode==RESULT_OK){
 
-            sexo = data.getExtras().getString("sexo");
+//            sexo = data.getExtras().getString("sexo");
             sangre = data.getExtras().getString("sangre");
             nombre = data.getExtras().getString("nombre");
             documento = data.getExtras().getString("documento");
             scorreo = data.getExtras().getString("correo");
             scontrasena = data.getExtras().getString("pass");
 
-            editor.putString("sexo", sexo);
+//            editor.putString("sexo", sexo);
             editor.putString("sangre", sangre);
             editor.putString("nombre", nombre);
             editor.putString("documento", documento);

@@ -57,10 +57,10 @@
 
     <item android:title="Configuración">
         <menu>
-            <!--<item-->
-                <!--android:id="@+id/cambiar_datos"-->
-                <!--android:icon="@drawable/ic_menu_share"-->
-                <!--android:title="Modificar Datos Personales" />-->
+            <item
+            android:id="@+id/miperfil"
+            android:icon="@drawable/ic_menu_share"
+            android:title="Mi Perfil" />
             <item
                 android:id="@+id/cerrar"
                 android:icon="@drawable/ic_menu_send"

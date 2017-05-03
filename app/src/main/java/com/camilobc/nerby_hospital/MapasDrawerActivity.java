@@ -3,6 +3,10 @@ package com.camilobc.nerby_hospital;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,40 +16,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.Spinner;
-import android.widget.TextView;
 
-public class PerfilDrawerActivity extends AppCompatActivity
+public class MapasDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    Intent intent;
-    TextView tnombre_perfil, tcorreo_perfil, tsangre_perfil, tcedula_perfil;
-    String sangre, snombre, documento, scorreo;
-    Spinner ListaSalud;
-    RadioButton rMas, rFem;
-    String[] items;
-    Button binfohosp;
-    ImageView iusuario;
-    //    Bitmap imageBitmap;
+    private FragmentManager fragmentManager;
+    String sangre, snombre, documento, scorreo, sexo;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
+    Intent intent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_perfil_drawer);
+        setContentView(R.layout.activity_mapas_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        ListaSalud = (Spinner) findViewById(R.id.ListaEPS);
-        items = getResources().getStringArray(R.array.EPS);
-        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_spinner_item,items);
-        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        ListaSalud.setAdapter(adaptador);
 
         Bundle extras = getIntent().getExtras();
 
@@ -54,41 +41,9 @@ public class PerfilDrawerActivity extends AppCompatActivity
         snombre = extras.getString("nombre");
         documento = extras.getString("documento");
         scorreo = extras.getString("correo");
-//        scontrasena = extras.getString("contrasena");
-//        alergia = extras.getString("alergias");
-//        enfermedad = extras.getString("enfermedades");
-//        t_acudiente = extras.getString("tacudiente");
-
-//        imageBitmap = (Bitmap) extras.get("data");
-//        iusuario = (ImageView) findViewById(R.id.fot_per);
-//        iusuario.setImageBitmap(imageBitmap);
 
         prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
         editor = prefs.edit();
-
-        binfohosp = (Button) findViewById(R.id.binfohospi);
-        tnombre_perfil = (TextView) findViewById(R.id.tnombre_perfil);
-        tsangre_perfil = (TextView) findViewById(R.id.tsangre_perfil);
-        tcorreo_perfil = (TextView) findViewById(R.id.tcorreo_perfil);
-        tcedula_perfil = (TextView) findViewById(R.id.tcedula_perfil);
-        tnombre_perfil.setText(snombre);
-        tsangre_perfil.setText(sangre);
-        tcorreo_perfil.setText(scorreo);
-        tcedula_perfil.setText(documento);
-
-        binfohosp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PerfilDrawerActivity.this, ListaSaludDrawerActivity.class);
-                intent.putExtra("nombre", snombre);
-                intent.putExtra("documento", documento);
-                intent.putExtra("sangre", sangre);
-                intent.putExtra("correo", scorreo);
-                startActivity(intent);
-//                finish();
-            }
-        });
-
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +62,11 @@ public class PerfilDrawerActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.container, new Mapa1Fragment(), "Mapa1Fragment");
+        transaction.commitAllowingStateLoss();
     }
 
     @Override
@@ -122,7 +82,7 @@ public class PerfilDrawerActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.perfil_drawer, menu);
+        getMenuInflater().inflate(R.menu.mapas_drawer, menu);
         return true;
     }
 
@@ -137,10 +97,9 @@ public class PerfilDrawerActivity extends AppCompatActivity
         if (id == R.id.cerrar_sesion) {
             editor.putInt("login",-1);
             editor.commit();
-            intent = new Intent(PerfilDrawerActivity.this, LoginActivity.class);
+            intent = new Intent(MapasDrawerActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
-
         }
 
         return super.onOptionsItemSelected(item);
@@ -153,14 +112,14 @@ public class PerfilDrawerActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.accidente) {
-            Intent intent = new Intent(PerfilDrawerActivity.this, MapasDrawerActivity.class);
+            Intent intent = new Intent(MapasDrawerActivity.this, MapasDrawerActivity.class);
             intent.putExtra("nombre", snombre);
             intent.putExtra("documento", documento);
             intent.putExtra("sangre", sangre);
             intent.putExtra("correo", scorreo);
             startActivity(intent);
         } else if (id == R.id.quemaduras) {
-            Intent intent = new Intent(PerfilDrawerActivity.this, MapasDrawerActivity.class);
+            Intent intent = new Intent(MapasDrawerActivity.this, MapasDrawerActivity.class);
             intent.putExtra("nombre", snombre);
             intent.putExtra("documento", documento);
             intent.putExtra("sangre", sangre);
@@ -168,7 +127,7 @@ public class PerfilDrawerActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.infecciones) {
-            Intent intent = new Intent(PerfilDrawerActivity.this, MapasDrawerActivity.class);
+            Intent intent = new Intent(MapasDrawerActivity.this, MapasDrawerActivity.class);
             intent.putExtra("nombre", snombre);
             intent.putExtra("documento", documento);
             intent.putExtra("sangre", sangre);
@@ -176,7 +135,7 @@ public class PerfilDrawerActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.alergias) {
-            Intent intent = new Intent(PerfilDrawerActivity.this, MapasDrawerActivity.class);
+            Intent intent = new Intent(MapasDrawerActivity.this, MapasDrawerActivity.class);
             intent.putExtra("nombre", snombre);
             intent.putExtra("documento", documento);
             intent.putExtra("sangre", sangre);
@@ -184,15 +143,15 @@ public class PerfilDrawerActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.hemorragias) {
-            Intent intent = new Intent(PerfilDrawerActivity.this, MapasDrawerActivity.class);
+            Intent intent = new Intent(MapasDrawerActivity.this, MapasDrawerActivity.class);
             intent.putExtra("nombre", snombre);
             intent.putExtra("documento", documento);
             intent.putExtra("sangre", sangre);
-            intent.putExtra("correo", scorreo);
+            intent.putExtra("sexo", sexo);
             startActivity(intent);
 
         } else if (id == R.id.cabeza) {
-            Intent intent = new Intent(PerfilDrawerActivity.this, MapasDrawerActivity.class);
+            Intent intent = new Intent(MapasDrawerActivity.this, MapasDrawerActivity.class);
             intent.putExtra("nombre", snombre);
             intent.putExtra("documento", documento);
             intent.putExtra("sangre", sangre);
@@ -200,7 +159,7 @@ public class PerfilDrawerActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.cuerpo) {
-            Intent intent = new Intent(PerfilDrawerActivity.this, MapasDrawerActivity.class);
+            Intent intent = new Intent(MapasDrawerActivity.this, MapasDrawerActivity.class);
             intent.putExtra("nombre", snombre);
             intent.putExtra("documento", documento);
             intent.putExtra("sangre", sangre);
@@ -208,7 +167,7 @@ public class PerfilDrawerActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.estomago) {
-            Intent intent = new Intent(PerfilDrawerActivity.this, MapasDrawerActivity.class);
+            Intent intent = new Intent(MapasDrawerActivity.this, MapasDrawerActivity.class);
             intent.putExtra("nombre", snombre);
             intent.putExtra("documento", documento);
             intent.putExtra("sangre", sangre);
@@ -216,7 +175,7 @@ public class PerfilDrawerActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.oido) {
-            Intent intent = new Intent(PerfilDrawerActivity.this, MapasDrawerActivity.class);
+            Intent intent = new Intent(MapasDrawerActivity.this, MapasDrawerActivity.class);
             intent.putExtra("nombre", snombre);
             intent.putExtra("documento", documento);
             intent.putExtra("sangre", sangre);
@@ -224,7 +183,7 @@ public class PerfilDrawerActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.vision) {
-            Intent intent = new Intent(PerfilDrawerActivity.this, MapasDrawerActivity.class);
+            Intent intent = new Intent(MapasDrawerActivity.this, MapasDrawerActivity.class);
             intent.putExtra("nombre", snombre);
             intent.putExtra("documento", documento);
             intent.putExtra("sangre", sangre);
@@ -232,26 +191,26 @@ public class PerfilDrawerActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.piel) {
-            Intent intent = new Intent(PerfilDrawerActivity.this, MapasDrawerActivity.class);
+            Intent intent = new Intent(MapasDrawerActivity.this, MapasDrawerActivity.class);
             intent.putExtra("nombre", snombre);
             intent.putExtra("documento", documento);
             intent.putExtra("sangre", sangre);
             intent.putExtra("correo", scorreo);
             startActivity(intent);
 
-//        } else if (id == R.id.cambiar_datos) {
-//            Intent intent = new Intent(PerfilDrawerActivity.this, Registro2Activity.class);
-//            intent.putExtra("nombre", snombre);
-//            intent.putExtra("documento", documento);
-//            intent.putExtra("sangre", sangre);
-//            intent.putExtra("sexo", sexo);
-//            startActivity(intent);
-//            finish();
+        } else if (id == R.id.miperfil) {
+            Intent intent = new Intent(MapasDrawerActivity.this, PerfilDrawerActivity.class);
+            intent.putExtra("nombre", snombre);
+            intent.putExtra("documento", documento);
+            intent.putExtra("sangre", sangre);
+            intent.putExtra("correo", scorreo);
+            startActivity(intent);
+            finish();
 
         } else if (id == R.id.cerrar) {
             editor.putInt("login",-1);
             editor.commit();
-            intent = new Intent(PerfilDrawerActivity.this, LoginActivity.class);
+            intent = new Intent(MapasDrawerActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         }

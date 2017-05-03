@@ -30,4 +30,12 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_mapa1">Mapa1</string>
+    <string name="title_activity_lista_salud_drawer">Hospitales Disponibles</string>
+    <string name="title_activity_salud_coop_drawer">SaludCoop</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_mapas_drawer">Hospitales Cercanos</string>
+    <string name="title_activity_emergencia_maps">Emergencia</string>
+    <string name="title_activity_leon13_drawer">Clínica León XIII</string>
 </resources>
