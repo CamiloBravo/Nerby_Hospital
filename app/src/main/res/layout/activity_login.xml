@@ -48,6 +48,7 @@
             android:textColor="#9f3730"
             android:textAlignment="center"
             android:textColorHint="#9f3730"
+            android:inputType="textPassword"
             android:hint="@string/contrasena"
             android:id="@+id/econtrasena"/>
         <TextView

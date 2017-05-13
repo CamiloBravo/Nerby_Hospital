@@ -1,6 +1,8 @@
 package com.camilobc.nerby_hospital;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,13 +13,17 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class RegistroActivity extends AppCompatActivity {
 
     EditText eDocumento, eNombre, eTelefono, eCorreo, eAlergias, eEnfermedades, eAcudiente, eTelAcudiente, eContrasena, eR_contrasena;
-    String  sangre, documento, nombre, telefono, correo, sexo, alergias, enfermedades, acudiente, telacudiente;
+    String  sangre, documento, nombre, telefono, correo, sexo, alergias, enfermedades, acudiente, telacudiente, contra;
     RadioButton masculino, femenino;
     Spinner ListaDesple, ListaDesple2;
     Button benviar, bcancelar;
@@ -27,11 +33,15 @@ public class RegistroActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference myRef;
     Usuarios usuarios;
+    private FirebaseAuth mAuth;
+//    private ProgressDialog mProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
+
+        mAuth = FirebaseAuth.getInstance();
 
         ListaDesple = (Spinner) findViewById(R.id.ListaDesple);
         items = getResources().getStringArray(R.array.Tipo_de_Sangre);
@@ -40,9 +50,7 @@ public class RegistroActivity extends AppCompatActivity {
         adaptador.setDropDownViewResource(android.R.layout.simple_spinner_item);
         ListaDesple.setAdapter(adaptador);
 
-
         sangre = ListaDesple.getItemAtPosition(ListaDesple.getSelectedItemPosition()).toString();
-
 
         eDocumento = (EditText) findViewById(R.id.eId);
         eNombre = (EditText) findViewById(R.id.enombre);
@@ -63,6 +71,7 @@ public class RegistroActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent();
+
                 database = FirebaseDatabase.getInstance();
                 documento = eDocumento.getText().toString();
                 nombre = eNombre.getText().toString();
@@ -72,6 +81,27 @@ public class RegistroActivity extends AppCompatActivity {
                 enfermedades = eEnfermedades.getText().toString();
                 acudiente = eAcudiente.getText().toString();
                 telacudiente = eTelAcudiente.getText().toString();
+                contra = eContrasena.getText().toString();
+
+//                compile 'com.google.firebase:firebase-database:10.2.4'
+
+                mAuth.createUserWithEmailAndPassword(correo, contra)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                if (!task.isSuccessful()) {
+                                    Toast.makeText(RegistroActivity.this, R.string.auth_failed,
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    Toast.makeText(RegistroActivity.this, "Proceso exitoso",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+
+                                // ...
+                            }
+                        });
 
                 if(eNombre.getText().toString().equals("") || eDocumento.getText().toString().equals("") ||
                         eTelefono.getText().toString().equals("") || eContrasena.getText().toString().equals("") ||

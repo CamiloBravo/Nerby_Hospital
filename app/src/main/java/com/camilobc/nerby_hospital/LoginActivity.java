@@ -2,6 +2,7 @@ package com.camilobc.nerby_hospital;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,11 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -18,7 +24,9 @@ public class LoginActivity extends AppCompatActivity {
     EditText eCorreo, eContrasena;
     Button bIniciar, bRegistrar, bEmergencia;
     String sangre, nombre, documento, scorreo, scontrasena, sexo;
+    private FirebaseAuth mAuth;
     //    Bitmap foto_perfil;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +43,8 @@ public class LoginActivity extends AppCompatActivity {
         documento = prefs.getString("documento", "nodocumento");
         scorreo = prefs.getString("correo", "nocorreo");
         scontrasena = prefs.getString("pass", "nopass");
+
+        mAuth = FirebaseAuth.getInstance();
 
         if(prefs.getInt("login", -1) == 1) {
             intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
@@ -70,9 +80,26 @@ public class LoginActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1234);
             }
         });
+
+
         bIniciar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+
+                mAuth.signInWithEmailAndPassword (eCorreo.getText().toString(), eContrasena.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(LoginActivity.this, R.string.auth_failed,
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(LoginActivity.this, "Proceso exitoso",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
                 if(eCorreo.getText().toString().equals("") || eContrasena.getText().toString().equals("")){
                     Toast.makeText(getApplicationContext(),"Llene los campos requeridos",Toast.LENGTH_SHORT).show();
                 }else if(!(eCorreo.getText().toString().equals(scorreo) && eContrasena.getText().toString().equals(scontrasena))) {

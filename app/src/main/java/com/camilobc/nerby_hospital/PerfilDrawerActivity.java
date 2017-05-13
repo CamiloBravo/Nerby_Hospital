@@ -85,7 +85,7 @@ public class PerfilDrawerActivity extends AppCompatActivity
                 intent.putExtra("sangre", sangre);
                 intent.putExtra("correo", scorreo);
                 startActivity(intent);
-//                finish();
+                finish();
             }
         });
 
