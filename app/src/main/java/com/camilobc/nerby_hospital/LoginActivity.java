@@ -15,6 +15,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -23,10 +25,12 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     EditText eCorreo, eContrasena;
     Button bIniciar, bRegistrar, bEmergencia;
-    String sangre, nombre, documento, scorreo, scontrasena, sexo;
+    String sangre, nombre, documento, scorreo, scontrasena, sexo, correo2;
     private FirebaseAuth mAuth;
     //    Bitmap foto_perfil;
-
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+    Usuarios usuarios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,42 +90,56 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                correo2 = eCorreo.getText().toString();
                 mAuth.signInWithEmailAndPassword (eCorreo.getText().toString(), eContrasena.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful()) {
-                            Toast.makeText(LoginActivity.this, R.string.auth_failed,
+                            Toast.makeText(LoginActivity.this, "Usuario Invalido",
                                     Toast.LENGTH_SHORT).show();
                         }
                         else{
-                            Toast.makeText(LoginActivity.this, "Proceso exitoso",
+                            Toast.makeText(LoginActivity.this, "Bienvenido",
                                     Toast.LENGTH_SHORT).show();
                         }
 
                     }
                 });
-                if(eCorreo.getText().toString().equals("") || eContrasena.getText().toString().equals("")){
-                    Toast.makeText(getApplicationContext(),"Llene los campos requeridos",Toast.LENGTH_SHORT).show();
-                }else if(!(eCorreo.getText().toString().equals(scorreo) && eContrasena.getText().toString().equals(scontrasena))) {
-                    Toast.makeText(getApplicationContext(), "Usuario invalido", Toast.LENGTH_SHORT).show();
-                } else if(eCorreo.getText().toString().equals(scorreo) && eContrasena.getText().toString().equals(scontrasena)){
 
-                    editor.putInt("login",1);
-                    editor.commit();
-                    intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
-                    intent.putExtra("sangre", sangre);
+                editor.putInt("login",1);
+                editor.commit();
+                intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
+                intent.putExtra("sangre", sangre);
 //                    intent.putExtra("sexo", sexo);
-                    intent.putExtra("nombre", nombre);
-                    intent.putExtra("documento", documento);
-                    intent.putExtra("correo", scorreo);
+                intent.putExtra("nombre", nombre);
+                intent.putExtra("documento", documento);
+                intent.putExtra("correo", scorreo);
 
-                    startActivity(intent);
-                    finish();
-                }
-                else
-                {
-                    Toast.makeText(LoginActivity.this, "El usuario ingresado no existe", Toast.LENGTH_SHORT).show();
-                }
+                startActivity(intent);
+                finish();
+
+//                if(eCorreo.getText().toString().equals("") || eContrasena.getText().toString().equals("")){
+//                    Toast.makeText(getApplicationContext(),"Llene los campos requeridos",Toast.LENGTH_SHORT).show();
+//                }else if(!(eCorreo.getText().toString().equals(scorreo) && eContrasena.getText().toString().equals(scontrasena))) {
+//                    Toast.makeText(getApplicationContext(), "Usuario invalido", Toast.LENGTH_SHORT).show();
+//                } else if(eCorreo.getText().toString().equals(scorreo) && eContrasena.getText().toString().equals(scontrasena)){
+//
+//                    editor.putInt("login",1);
+//                    editor.commit();
+//                    intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
+//                    intent.putExtra("sangre", sangre);
+////                    intent.putExtra("sexo", sexo);
+//                    intent.putExtra("nombre", nombre);
+//                    intent.putExtra("documento", documento);
+//                    intent.putExtra("correo", scorreo);
+//
+//                    startActivity(intent);
+//                    finish();
+//                }
+//                else
+//                {
+//                    Toast.makeText(LoginActivity.this, "El usuario ingresado no existe", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
     }

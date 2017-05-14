@@ -30,9 +30,10 @@ public class RegistroActivity extends AppCompatActivity {
     String[] items, items2;
     String[] opciones_sangre={"O+","A+"};
 
-    FirebaseDatabase database;
-    DatabaseReference myRef;
-    Usuarios usuarios;
+    FirebaseDatabase database, database2;
+    DatabaseReference myRef, myRef2;
+    Usuarios usuarios, usuarios2;
+
     private FirebaseAuth mAuth;
 //    private ProgressDialog mProgress;
 
@@ -73,6 +74,7 @@ public class RegistroActivity extends AppCompatActivity {
                 Intent intent = new Intent();
 
                 database = FirebaseDatabase.getInstance();
+//                database2 = FirebaseDatabase.getInstance();
                 documento = eDocumento.getText().toString();
                 nombre = eNombre.getText().toString();
                 telefono = eTelefono.getText().toString();
@@ -103,37 +105,49 @@ public class RegistroActivity extends AppCompatActivity {
                             }
                         });
 
-                if(eNombre.getText().toString().equals("") || eDocumento.getText().toString().equals("") ||
-                        eTelefono.getText().toString().equals("") || eContrasena.getText().toString().equals("") ||
-                        eR_contrasena.getText().toString().equals("") || eCorreo.getText().toString().equals("") ||
-                        eEnfermedades.getText().toString().equals("") || eAcudiente.getText().toString().equals("") ||
-                        sangre.equals("") ||
-                        eAlergias.getText().toString().equals("") || eTelAcudiente.getText().toString().equals("") )
-                {
-                    Toast.makeText(getApplicationContext(),"Llene todos los campos",Toast.LENGTH_SHORT).show();
-                    setResult(RESULT_CANCELED, intent);
-                } else if(!(eContrasena.getText().toString().equals(eR_contrasena.getText().toString()))){
-                    Toast.makeText(getApplicationContext(),"La contraseña no coincide",Toast.LENGTH_SHORT).show();
-                    setResult(RESULT_CANCELED, intent);
-                }else {
-                    if(masculino.isChecked()){
-                        sexo="Masculino";
-                    }else if(femenino.isChecked()){
-                        sexo="Femenino";
-                    }
+//                if(eNombre.getText().toString().equals("") || eDocumento.getText().toString().equals("") ||
+//                        eTelefono.getText().toString().equals("") || eContrasena.getText().toString().equals("") ||
+//                        eR_contrasena.getText().toString().equals("") || eCorreo.getText().toString().equals("") ||
+//                        eEnfermedades.getText().toString().equals("") || eAcudiente.getText().toString().equals("") ||
+//                        sangre.equals("") ||
+//                        eAlergias.getText().toString().equals("") || eTelAcudiente.getText().toString().equals("") )
+//                {
+//                    Toast.makeText(getApplicationContext(),"Llene todos los campos",Toast.LENGTH_SHORT).show();
+//                    setResult(RESULT_CANCELED, intent);
+//                } else if(!(eContrasena.getText().toString().equals(eR_contrasena.getText().toString()))){
+//                    Toast.makeText(getApplicationContext(),"La contraseña no coincide",Toast.LENGTH_SHORT).show();
+//                    setResult(RESULT_CANCELED, intent);
+//                }else {
+//                    if(masculino.isChecked()){
+//                        sexo="Masculino";
+//                    }else if(femenino.isChecked()){
+//                        sexo="Femenino";
+//                    }
+//
+//                    intent.putExtra("sangre", sangre);
+//                    intent.putExtra("nombre", eNombre.getText().toString());
+//                    intent.putExtra("documento", eDocumento.getText().toString());
+//                    intent.putExtra("correo", eCorreo.getText().toString());
+//                    intent.putExtra("pass", eContrasena.getText().toString());
+//
+//                    setResult(RESULT_OK, intent);
+//                    finish();
+//                }
+                myRef = database.getReference("Usuarios").child(String.valueOf(documento));
+                usuarios = new Usuarios(String.valueOf(documento), nombre, telefono, correo, sexo, sangre, alergias, enfermedades, acudiente, telacudiente);
+                myRef.setValue(usuarios);
+//                myRef2 = database2.getReference("Datos").child(String.valueOf(documento));
+//                usuarios2 = new Usuarios(String.valueOf(documento), nombre, telefono, correo, sexo, sangre, alergias, enfermedades, acudiente, telacudiente);
+//                myRef2.setValue(usuarios2);
 
                     intent.putExtra("sangre", sangre);
                     intent.putExtra("nombre", eNombre.getText().toString());
                     intent.putExtra("documento", eDocumento.getText().toString());
                     intent.putExtra("correo", eCorreo.getText().toString());
                     intent.putExtra("pass", eContrasena.getText().toString());
-
-                    setResult(RESULT_OK, intent);
+                setResult(RESULT_OK, intent);
                     finish();
-                }
-                myRef = database.getReference("Usuarios").child(String.valueOf(documento));
-                usuarios = new Usuarios(String.valueOf(documento), nombre, telefono, correo, sexo, sangre, alergias, enfermedades, acudiente, telacudiente);
-                myRef.setValue(usuarios);
+
             }
         });
         bcancelar.setOnClickListener(new View.OnClickListener(){
