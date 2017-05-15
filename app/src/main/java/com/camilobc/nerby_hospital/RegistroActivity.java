@@ -23,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class RegistroActivity extends AppCompatActivity {
 
     EditText eDocumento, eNombre, eTelefono, eCorreo, eAlergias, eEnfermedades, eAcudiente, eTelAcudiente, eContrasena, eR_contrasena;
-    String  sangre, documento, nombre, telefono, correo, sexo, alergias, enfermedades, acudiente, telacudiente, contra;
+    String  sangre, documento, nombre, telefono, correo, sexo, alergias, enfermedades, acudiente, tel_acudiente, contra;
     RadioButton masculino, femenino;
     Spinner ListaDesple, ListaDesple2;
     Button benviar, bcancelar;
@@ -34,6 +34,7 @@ public class RegistroActivity extends AppCompatActivity {
     DatabaseReference myRef, myRef2;
     Usuarios usuarios, usuarios2;
     Datos datos;
+    Correo correoclass;
 
     private FirebaseAuth mAuth;
 
@@ -82,7 +83,7 @@ public class RegistroActivity extends AppCompatActivity {
                 alergias = eAlergias.getText().toString();
                 enfermedades = eEnfermedades.getText().toString();
                 acudiente = eAcudiente.getText().toString();
-                telacudiente = eTelAcudiente.getText().toString();
+                tel_acudiente = eTelAcudiente.getText().toString();
                 contra = eContrasena.getText().toString();
 
 //                compile 'com.google.firebase:firebase-database:10.2.4'
@@ -134,11 +135,11 @@ public class RegistroActivity extends AppCompatActivity {
 //                    finish();
 //                }
                 myRef = database.getReference("Usuarios").child(String.valueOf(documento));
-                usuarios = new Usuarios(String.valueOf(documento), nombre, telefono, correo, sexo, sangre, alergias, enfermedades, acudiente, telacudiente);
+                usuarios = new Usuarios(String.valueOf(documento), nombre, telefono, correo, sexo, sangre, alergias, enfermedades, acudiente, tel_acudiente);
                 myRef.setValue(usuarios);
 //                myRef = database.getReference("Datos").child(String.valueOf(correo));
-//                datos = new Datos(String.valueOf(correo), nombre, telefono, documento, sexo, sangre, alergias, enfermedades, acudiente, telacudiente);
-//                myRef.setValue(datos);
+//                correoclass = new Correo(String.valueOf(correo), nombre, telefono, documento, sexo, sangre, alergias, enfermedades, acudiente, tel_acudiente);
+//                myRef.setValue(correoclass);
 
 //                intent.putExtra("sangre", sangre);
 //                intent.putExtra("nombre", eNombre.getText().toString());

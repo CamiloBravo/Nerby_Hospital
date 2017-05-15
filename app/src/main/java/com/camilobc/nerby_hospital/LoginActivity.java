@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -32,13 +34,13 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     EditText eCorreo, eContrasena;
     Button bIniciar, bRegistrar, bEmergencia;
-    String sangre, nombre, documento, scorreo, scontrasena, sexo, correo2, nombre2, sangre2, documento2;
+    String sangre, Correo2, nombre, documento, scorreo, scontrasena, sexo, correo2, nombre2, sangre2, documento2;
     private FirebaseAuth mAuth;
     //    Bitmap foto_perfil;
     FirebaseDatabase database;
     DatabaseReference myRef;
     Usuarios usuarios;
-    ArrayList<Usuarios> info;
+//    ArrayList<Usuarios> info;
 
 //    private String FIREBASE_URL="https://nerbyhospitalv1.firebaseio.com/";
 
@@ -52,43 +54,57 @@ public class LoginActivity extends AppCompatActivity {
         editor = prefs.edit();
         database = FirebaseDatabase.getInstance();
 
-        info = new ArrayList<Usuarios>();
-        documento = "123";
+//        info = new ArrayList<Usuarios>();
+//        documento = "123";
 
+        eCorreo = (EditText) findViewById(R.id.edcorreo);
+        Correo2= eCorreo.getText().toString();
         myRef = database.getReference("Usuarios");
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
-//                            info.add(userSnapshot.getValue(Usuarios.class));
-//                            if (eCorreo.getText().toString()=="ft@ft.com"){
-//                                correo2 = info.get(0).getCorreo();
-//                                editor.putString("correo", correo2);
-//                                nombre2 = info.get(0).getNombre();
-//                                editor.putString("nombre", nombre2);
-//                                sangre2 = info.get(0).getSangre();
-//                                editor.putString("sangre", sangre2);
-//                                documento2 = info.get(0).getDocumento();
-//                                editor.putString("documento", documento2);
-//                            }
-//                        }
-                if (dataSnapshot.child(documento).exists()){
-                    info.add(dataSnapshot.child(documento).getValue(Usuarios.class));
-                    correo2 = info.get(0).getCorreo();
-                    editor.putString("correo", correo2);
-                    nombre2 = info.get(0).getNombre();
-                    editor.putString("nombre", nombre2);
-                    sangre2 = info.get(0).getSangre();
-                    editor.putString("sangre", sangre2);
-                    documento2 = info.get(0).getDocumento();
-                    editor.putString("documento", documento2);
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+//        Query a = myRef.orderByChild("correo").equalTo(Correo2).limitToFirst(1);
 
-            }
-        });
+
+//        String myUserId = getUid();
+//        Query myTopPostQuery = myRef.child("Usuarios").child(myUserId).orderByChild("correo")
+//        myRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                ArrayList<Usuarios> info = new ArrayList<Usuarios>();
+//                for (DataSnapshot postSnapshot:dataSnapshot.getChildren()){
+//                    info.add(postSnapshot.getValue(Usuarios.class));
+//                }
+//
+//                    correo2 = info.get(0).getDocumento();
+//
+////                for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
+////                            info.add(userSnapshot.getValue(Usuarios.class));
+////                            if (eCorreo.getText().toString()=="ft@ft.com"){
+////                                correo2 = info.get(0).getCorreo();
+////                                editor.putString("correo", correo2);
+////                                nombre2 = info.get(0).getNombre();
+////                                editor.putString("nombre", nombre2);
+////                                sangre2 = info.get(0).getSangre();
+////                                editor.putString("sangre", sangre2);
+////                                documento2 = info.get(0).getDocumento();
+////                                editor.putString("documento", documento2);
+////                            }
+////                        }
+////                if (dataSnapshot.child(Correo2).exists()){
+////                    info.add(dataSnapshot.child(Correo2).getValue(Usuarios.class));
+////                    correo2 = info.get(0).getCorreo();
+////                    editor.putString("correo", correo2);
+////                    nombre2 = info.get(0).getNombre();
+////                    editor.putString("nombre", nombre2);
+////                    sangre2 = info.get(0).getSangre();
+////                    editor.putString("sangre", sangre2);
+////                    documento2 = info.get(0).getDocumento();
+////                    editor.putString("documento", documento2);
+////                }
+//            }
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 
         scorreo = prefs.getString("correo", "nocorreo");
         nombre = prefs.getString("nombre", "nonombre");
@@ -107,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
 
-        eCorreo = (EditText) findViewById(R.id.edcorreo);
+
         eContrasena = (EditText) findViewById(R.id.econtrasena);
         bIniciar = (Button) findViewById(R.id.biniciar);
         bRegistrar = (Button) findViewById(R.id.bregistrese);
