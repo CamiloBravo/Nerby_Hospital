@@ -84,41 +84,6 @@ public class PerfilDrawerActivity extends AppCompatActivity
         tsangre_perfil.setText(sangre);
         tcorreo_perfil.setText(correo);
         tcedula_perfil.setText(documento);
-//        database = FirebaseDatabase.getInstance();
-//        myRef = database.getReference("Usuarios");
-//        myRef.addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                if (dataSnapshot.child(scorreo).exists()){
-//                    usuarios = dataSnapshot.child(documento).getValue(Usuarios.class);
-//                                        tnombre_perfil.setText(usuarios.getNombre());
-//                                        tsangre_perfil.setText(usuarios.getTelefono());
-//                                        tcorreo_perfil.setText(usuarios.getCorreo());
-//
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(DataSnapshot dataSnapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
 
         binfohosp.setOnClickListener(new View.OnClickListener() {
             @Override
