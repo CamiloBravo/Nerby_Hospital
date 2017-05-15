@@ -42,8 +42,8 @@ public class MapasDrawerActivity extends AppCompatActivity
         documento = extras.getString("documento");
         scorreo = extras.getString("correo");
 
-        prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
-        editor = prefs.edit();
+//        prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
+//        editor = prefs.edit();
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -95,8 +95,8 @@ public class MapasDrawerActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.cerrar_sesion) {
-            editor.putInt("login",-1);
-            editor.commit();
+//            editor.putInt("login",-1);
+//            editor.commit();
             intent = new Intent(MapasDrawerActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
@@ -208,8 +208,8 @@ public class MapasDrawerActivity extends AppCompatActivity
             finish();
 
         } else if (id == R.id.cerrar) {
-            editor.putInt("login",-1);
-            editor.commit();
+//            editor.putInt("login",-1);
+//            editor.commit();
             intent = new Intent(MapasDrawerActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();

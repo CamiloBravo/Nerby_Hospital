@@ -140,13 +140,13 @@ public class RegistroActivity extends AppCompatActivity {
 //                usuarios2 = new Usuarios(String.valueOf(documento), nombre, telefono, correo, sexo, sangre, alergias, enfermedades, acudiente, telacudiente);
 //                myRef2.setValue(usuarios2);
 
-                    intent.putExtra("sangre", sangre);
-                    intent.putExtra("nombre", eNombre.getText().toString());
-                    intent.putExtra("documento", eDocumento.getText().toString());
-                    intent.putExtra("correo", eCorreo.getText().toString());
-                    intent.putExtra("pass", eContrasena.getText().toString());
+//                intent.putExtra("sangre", sangre);
+//                intent.putExtra("nombre", eNombre.getText().toString());
+//                intent.putExtra("documento", eDocumento.getText().toString());
+//                intent.putExtra("correo", eCorreo.getText().toString());
+//                intent.putExtra("pass", eContrasena.getText().toString());
                 setResult(RESULT_OK, intent);
-                    finish();
+                finish();
 
             }
         });

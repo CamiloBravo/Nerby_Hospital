@@ -41,8 +41,8 @@ public class Leon13DrawerActivity extends AppCompatActivity
         documento = extras.getString("documento");
         scorreo = extras.getString("correo");
 
-        prefs= getSharedPreferences("MisPreferencias",MODE_PRIVATE);
-        editor = prefs.edit();
+//        prefs= getSharedPreferences("MisPreferencias",MODE_PRIVATE);
+//        editor = prefs.edit();
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
@@ -137,8 +137,8 @@ public class Leon13DrawerActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.cerrar_sesion) {
-            editor.putInt("login",-1);
-            editor.commit();
+//            editor.putInt("login",-1);
+//            editor.commit();
             intent = new Intent(Leon13DrawerActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
@@ -250,8 +250,8 @@ public class Leon13DrawerActivity extends AppCompatActivity
             finish();
 
         } else if (id == R.id.cerrar) {
-            editor.putInt("login",-1);
-            editor.commit();
+//            editor.putInt("login",-1);
+//            editor.commit();
             intent = new Intent(Leon13DrawerActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
