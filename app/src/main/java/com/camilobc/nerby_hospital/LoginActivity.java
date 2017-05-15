@@ -15,11 +15,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -28,12 +32,15 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     EditText eCorreo, eContrasena;
     Button bIniciar, bRegistrar, bEmergencia;
-    String sangre, nombre, documento, scorreo, scontrasena, sexo, correo2;
+    String sangre, nombre, documento, scorreo, scontrasena, sexo, correo2, nombre2;
     private FirebaseAuth mAuth;
     //    Bitmap foto_perfil;
     FirebaseDatabase database;
     DatabaseReference myRef;
     Usuarios usuarios;
+    ArrayList<Usuarios> info;
+
+//    private String FIREBASE_URL="https://nerbyhospitalv1.firebaseio.com/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +51,11 @@ public class LoginActivity extends AppCompatActivity {
         prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
         editor = prefs.edit();
 
+        info = new ArrayList<Usuarios>();
+        documento = "65978";
+
+
+
 //        sexo = prefs.getString("sexo", "nosexo");
 //        sangre = prefs.getString("sangre", "nosangre");
 //        nombre = prefs.getString("nombre", "nonombre");
@@ -51,29 +63,34 @@ public class LoginActivity extends AppCompatActivity {
 //        scorreo = prefs.getString("correo", "nocorreo");
 //        scontrasena = prefs.getString("pass", "nopass");
 
-//            myRef = database.getReference("Usuarios");
-//            myRef.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    if (dataSnapshot.child(documento).exists()){
-//                        usuarios = dataSnapshot.child(documento).getValue(Usuarios.class);
-//                        scorreo = usuarios.getCorreo();
-//
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//
-//                }
-//            });
 
-            editor.putString("sangre", sangre);
-            editor.putString("nombre", nombre);
-            editor.putString("documento", documento);
-            editor.putString("correo", scorreo);
-            editor.putString("pass", scontrasena);
-            editor.commit();
+
+
+//        FirebaseAuth auth = FirebaseAuth.getInstance();
+//        FirebaseAuth.AuthStateListener authListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+//                if (firebaseUser != null) {
+//
+//                    String userEmail = firebaseUser.getEmail();
+//
+//                    editor.putString("correo", userEmail);
+//                    editor.commit();
+//                }
+//            }
+//        };
+
+        scorreo = prefs.getString("correo", "nocorreo");
+        nombre = prefs.getString("nombre", "nonombre");
+
+
+//            editor.putString("sangre", sangre);
+//            editor.putString("nombre", nombre);
+//            editor.putString("documento", documento);
+//            editor.putString("correo", scorreo);
+//            editor.putString("pass", scontrasena);
+//            editor.commit();
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -116,8 +133,8 @@ public class LoginActivity extends AppCompatActivity {
         bIniciar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-
-                correo2 = eCorreo.getText().toString();
+                database = FirebaseDatabase.getInstance();
+//                correo2 = eCorreo.getText().toString();
                 mAuth.signInWithEmailAndPassword (eCorreo.getText().toString(), eContrasena.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -126,24 +143,45 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
                         }
                         else{
+                            intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
+                            intent.putExtra("sangre", sangre);
+//                    intent.putExtra("sexo", sexo);
+                            intent.putExtra("nombre", nombre);
+                            intent.putExtra("documento", documento);
+                            intent.putExtra("correo", scorreo);
+
+                            startActivity(intent);
+                            finish();
                             Toast.makeText(LoginActivity.this, "Bienvenido",
                                     Toast.LENGTH_SHORT).show();
+
                         }
+
+                    }
+                });
+
+                myRef = database.getReference("Usuarios");
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.child(documento).exists()){
+                            info.add(dataSnapshot.child(documento).getValue(Usuarios.class));
+                            correo2 = info.get(0).getCorreo();
+                            editor.putString("correo", correo2);
+                            nombre2 = info.get(0).getNombre();
+                            editor.putString("nombre", nombre2);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
                     }
                 });
 
                 editor.putInt("login",1);
                 editor.commit();
-                intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
-                intent.putExtra("sangre", sangre);
-//                    intent.putExtra("sexo", sexo);
-                intent.putExtra("nombre", nombre);
-                intent.putExtra("documento", documento);
-                intent.putExtra("correo", scorreo);
 
-                startActivity(intent);
-                finish();
 
 //                if(eCorreo.getText().toString().equals("") || eContrasena.getText().toString().equals("")){
 //                    Toast.makeText(getApplicationContext(),"Llene los campos requeridos",Toast.LENGTH_SHORT).show();

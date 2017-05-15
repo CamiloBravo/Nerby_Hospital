@@ -33,9 +33,9 @@ public class RegistroActivity extends AppCompatActivity {
     FirebaseDatabase database, database2;
     DatabaseReference myRef, myRef2;
     Usuarios usuarios, usuarios2;
+    Datos datos;
 
     private FirebaseAuth mAuth;
-//    private ProgressDialog mProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,9 +136,9 @@ public class RegistroActivity extends AppCompatActivity {
                 myRef = database.getReference("Usuarios").child(String.valueOf(documento));
                 usuarios = new Usuarios(String.valueOf(documento), nombre, telefono, correo, sexo, sangre, alergias, enfermedades, acudiente, telacudiente);
                 myRef.setValue(usuarios);
-//                myRef2 = database2.getReference("Datos").child(String.valueOf(documento));
-//                usuarios2 = new Usuarios(String.valueOf(documento), nombre, telefono, correo, sexo, sangre, alergias, enfermedades, acudiente, telacudiente);
-//                myRef2.setValue(usuarios2);
+//                myRef = database.getReference("Datos").child(String.valueOf(correo));
+//                datos = new Datos(String.valueOf(correo), nombre, telefono, documento, sexo, sangre, alergias, enfermedades, acudiente, telacudiente);
+//                myRef.setValue(datos);
 
 //                intent.putExtra("sangre", sangre);
 //                intent.putExtra("nombre", eNombre.getText().toString());
