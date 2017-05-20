@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -34,13 +33,13 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     EditText eCorreo, eContrasena;
     Button bIniciar, bRegistrar, bEmergencia;
-    String sangre, Correo2, nombre, documento, scorreo, scontrasena, sexo, correo2, nombre2, sangre2, documento2;
-    private FirebaseAuth mAuth;
+    String sangre, Correo2, nombre, documento, scorreo, scontrasena, sexo, correo2, nombre2, sangre2, documento2, userid;
+    private FirebaseAuth mAuth2;
     //    Bitmap foto_perfil;
     FirebaseDatabase database;
     DatabaseReference myRef;
     Usuarios usuarios;
-//    ArrayList<Usuarios> info;
+    ArrayList<Usuarios> info;
 
 //    private String FIREBASE_URL="https://nerbyhospitalv1.firebaseio.com/";
 
@@ -54,63 +53,17 @@ public class LoginActivity extends AppCompatActivity {
         editor = prefs.edit();
         database = FirebaseDatabase.getInstance();
 
-//        info = new ArrayList<Usuarios>();
-//        documento = "123";
+        info = new ArrayList<Usuarios>();
+//        documento = "7";
 
         eCorreo = (EditText) findViewById(R.id.edcorreo);
         Correo2= eCorreo.getText().toString();
         myRef = database.getReference("Usuarios");
-//        Query a = myRef.orderByChild("correo").equalTo(Correo2).limitToFirst(1);
-
-
-//        String myUserId = getUid();
-//        Query myTopPostQuery = myRef.child("Usuarios").child(myUserId).orderByChild("correo")
-//        myRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                ArrayList<Usuarios> info = new ArrayList<Usuarios>();
-//                for (DataSnapshot postSnapshot:dataSnapshot.getChildren()){
-//                    info.add(postSnapshot.getValue(Usuarios.class));
-//                }
-//
-//                    correo2 = info.get(0).getDocumento();
-//
-////                for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
-////                            info.add(userSnapshot.getValue(Usuarios.class));
-////                            if (eCorreo.getText().toString()=="ft@ft.com"){
-////                                correo2 = info.get(0).getCorreo();
-////                                editor.putString("correo", correo2);
-////                                nombre2 = info.get(0).getNombre();
-////                                editor.putString("nombre", nombre2);
-////                                sangre2 = info.get(0).getSangre();
-////                                editor.putString("sangre", sangre2);
-////                                documento2 = info.get(0).getDocumento();
-////                                editor.putString("documento", documento2);
-////                            }
-////                        }
-////                if (dataSnapshot.child(Correo2).exists()){
-////                    info.add(dataSnapshot.child(Correo2).getValue(Usuarios.class));
-////                    correo2 = info.get(0).getCorreo();
-////                    editor.putString("correo", correo2);
-////                    nombre2 = info.get(0).getNombre();
-////                    editor.putString("nombre", nombre2);
-////                    sangre2 = info.get(0).getSangre();
-////                    editor.putString("sangre", sangre2);
-////                    documento2 = info.get(0).getDocumento();
-////                    editor.putString("documento", documento2);
-////                }
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
 
         scorreo = prefs.getString("correo", "nocorreo");
         nombre = prefs.getString("nombre", "nonombre");
         sangre = prefs.getString("sangre", "nosangre");
-
-        mAuth = FirebaseAuth.getInstance();
+        documento = prefs.getString("documento", "nodocumento");
 
         if(prefs.getInt("login", -1) == 1) {
             intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
@@ -122,7 +75,6 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-
 
         eContrasena = (EditText) findViewById(R.id.econtrasena);
         bIniciar = (Button) findViewById(R.id.biniciar);
@@ -148,19 +100,22 @@ public class LoginActivity extends AppCompatActivity {
         bIniciar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                //                correo2 = eCorreo.getText().toString();
+                mAuth2 = FirebaseAuth.getInstance();
 
-//                correo2 = eCorreo.getText().toString();
                 if(eCorreo.getText().toString().equals("") || eContrasena.getText().toString().equals("")){
                     Toast.makeText(getApplicationContext(),"Llene los campos requeridos",Toast.LENGTH_SHORT).show();
                 }else {
-                    mAuth.signInWithEmailAndPassword(eCorreo.getText().toString(), eContrasena.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    mAuth2.signInWithEmailAndPassword(eCorreo.getText().toString(), eContrasena.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()) {
                                 Toast.makeText(LoginActivity.this, "El usuario ingresado no existe",
                                         Toast.LENGTH_SHORT).show();
                             } else {
+                                userid = mAuth2.getCurrentUser().getUid();
                                 intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
+//                                intent.putExtra("user", userid);
                                 intent.putExtra("sangre", sangre);
                                 intent.putExtra("nombre", nombre);
                                 intent.putExtra("documento", documento);

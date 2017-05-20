@@ -20,20 +20,21 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class RegistroActivity extends AppCompatActivity {
 
     EditText eDocumento, eNombre, eTelefono, eCorreo, eAlergias, eEnfermedades, eAcudiente, eTelAcudiente, eContrasena, eR_contrasena;
-    String  sangre, documento, nombre, telefono, correo, sexo, alergias, enfermedades, acudiente, tel_acudiente, contra;
+    String  sangre, documento, nombre, telefono, correo, sexo, alergias, enfermedades, acudiente, tel_acudiente, contra, userid;
     RadioButton masculino, femenino;
     Spinner ListaDesple, ListaDesple2;
     Button benviar, bcancelar;
     String[] items, items2;
     String[] opciones_sangre={"O+","A+"};
 
-    FirebaseDatabase database, database2;
-    DatabaseReference myRef, myRef2;
+    FirebaseDatabase database, database3;
+    DatabaseReference myRef, myRef3;
     Usuarios usuarios, usuarios2;
-    Datos datos;
     Correo correoclass;
 
     private FirebaseAuth mAuth;
@@ -74,19 +75,18 @@ public class RegistroActivity extends AppCompatActivity {
 
                 Intent intent = new Intent();
 
+                database3 = FirebaseDatabase.getInstance();
+                correo = eCorreo.getText().toString();
                 database = FirebaseDatabase.getInstance();
-//                database2 = FirebaseDatabase.getInstance();
                 documento = eDocumento.getText().toString();
                 nombre = eNombre.getText().toString();
                 telefono = eTelefono.getText().toString();
-                correo = eCorreo.getText().toString();
+
                 alergias = eAlergias.getText().toString();
                 enfermedades = eEnfermedades.getText().toString();
                 acudiente = eAcudiente.getText().toString();
                 tel_acudiente = eTelAcudiente.getText().toString();
                 contra = eContrasena.getText().toString();
-
-//                compile 'com.google.firebase:firebase-database:10.2.4'
 
                 mAuth.createUserWithEmailAndPassword(correo, contra)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -101,8 +101,6 @@ public class RegistroActivity extends AppCompatActivity {
                                     Toast.makeText(RegistroActivity.this, "Proceso exitoso",
                                             Toast.LENGTH_SHORT).show();
                                 }
-
-                                // ...
                             }
                         });
 
@@ -134,18 +132,14 @@ public class RegistroActivity extends AppCompatActivity {
 //                    setResult(RESULT_OK, intent);
 //                    finish();
 //                }
+                userid = mAuth.getCurrentUser().getUid();
                 myRef = database.getReference("Usuarios").child(String.valueOf(documento));
-                usuarios = new Usuarios(String.valueOf(documento), nombre, telefono, correo, sexo, sangre, alergias, enfermedades, acudiente, tel_acudiente);
+                usuarios = new Usuarios(String.valueOf(correo), nombre, telefono, correo, sexo, sangre, alergias, enfermedades, acudiente, tel_acudiente);
                 myRef.setValue(usuarios);
-//                myRef = database.getReference("Datos").child(String.valueOf(correo));
-//                correoclass = new Correo(String.valueOf(correo), nombre, telefono, documento, sexo, sangre, alergias, enfermedades, acudiente, tel_acudiente);
-//                myRef.setValue(correoclass);
+                myRef3 = database3.getReference("Datos").child(String.valueOf(userid));
+                correoclass = new Correo(String.valueOf(correo), nombre, telefono, documento, sexo, sangre, alergias, enfermedades, acudiente, tel_acudiente);
+                myRef3.setValue(correoclass);
 
-//                intent.putExtra("sangre", sangre);
-//                intent.putExtra("nombre", eNombre.getText().toString());
-//                intent.putExtra("documento", eDocumento.getText().toString());
-//                intent.putExtra("correo", eCorreo.getText().toString());
-//                intent.putExtra("pass", eContrasena.getText().toString());
                 setResult(RESULT_OK, intent);
                 finish();
 

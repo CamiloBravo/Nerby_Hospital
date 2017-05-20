@@ -1,7 +1,7 @@
 package com.camilobc.nerby_hospital;
 
 /**
- * Created by Camilo on 15/05/2017.
+ * Created by Camilo on 20/05/2017.
  */
 
 public class Correo {
@@ -10,6 +10,7 @@ public class Correo {
     public Correo(){
 
     }
+
     public Correo(String correo, String nombre, String telefono, String documento, String sexo, String sangre, String alergias, String enfermedades, String acudiente, String tel_acudiente) {
         this.correo = correo;
         this.nombre = nombre;

@@ -25,13 +25,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class PerfilDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Intent intent;
     TextView tnombre_perfil, tcorreo_perfil, tsangre_perfil, tcedula_perfil;
-    String sangre, nombre, documento, correo, Ssangre, Snombre, Sdocumento, Scorreo, Scontrasena;
+    String sangre, nombre, documento, correo, Ssangre, Snombre, Sdocumento, Scorreo, Scontrasena, userid;
     Spinner ListaSalud;
     RadioButton rMas, rFem;
     String[] items;
@@ -44,6 +47,7 @@ public class PerfilDrawerActivity extends AppCompatActivity
     FirebaseDatabase database;
     DatabaseReference myRef;
     Usuarios usuarios;
+    ArrayList<Usuarios> info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +56,17 @@ public class PerfilDrawerActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        database = FirebaseDatabase.getInstance();
+
+        myRef = database.getReference("Usuarios");
+
         ListaSalud = (Spinner) findViewById(R.id.ListaEPS);
         items = getResources().getStringArray(R.array.EPS);
         ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_spinner_item,items);
         adaptador.setDropDownViewResource(android.R.layout.simple_spinner_item);
         ListaSalud.setAdapter(adaptador);
+
+        info = new ArrayList<Usuarios>();
 
         Bundle extras = getIntent().getExtras();
 
@@ -64,6 +74,7 @@ public class PerfilDrawerActivity extends AppCompatActivity
         nombre = extras.getString("nombre");
         documento = extras.getString("documento");
         correo = extras.getString("correo");
+//        userid = extras.getString("user");
 
         prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
         editor = prefs.edit();
@@ -74,16 +85,42 @@ public class PerfilDrawerActivity extends AppCompatActivity
         Scorreo = prefs.getString("correo", "nocorreo");
         Scontrasena = prefs.getString("pass", "nopass");
 
-
         binfohosp = (Button) findViewById(R.id.binfohospi);
         tnombre_perfil = (TextView) findViewById(R.id.tnombre_perfil);
         tsangre_perfil = (TextView) findViewById(R.id.tsangre_perfil);
         tcorreo_perfil = (TextView) findViewById(R.id.tcorreo_perfil);
         tcedula_perfil = (TextView) findViewById(R.id.tcedula_perfil);
-        tnombre_perfil.setText(nombre);
-        tsangre_perfil.setText(sangre);
-        tcorreo_perfil.setText(correo);
-        tcedula_perfil.setText(documento);
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mAuth = FirebaseAuth.getInstance();
+                userid = mAuth.getCurrentUser().getUid();
+                if (dataSnapshot.child(userid).exists()){
+                    tnombre_perfil.setText(nombre);
+                    tsangre_perfil.setText(sangre);
+                    tcorreo_perfil.setText(correo);
+                    tcedula_perfil.setText(documento);
+//                    info.add(dataSnapshot.child(userid).getValue(Usuarios.class));
+//                    correo = info.get(0).getCorreo();
+//                    editor.putString("correo", correo);
+//                    nombre = info.get(0).getNombre();
+//                    editor.putString("nombre", nombre);
+//                    sangre = info.get(0).getSangre();
+//                    editor.putString("sangre", sangre);
+//                    documento = info.get(0).getDocumento();
+//                    editor.putString("documento", documento);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
 
         binfohosp.setOnClickListener(new View.OnClickListener() {
             @Override
