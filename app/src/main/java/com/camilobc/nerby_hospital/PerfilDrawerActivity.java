@@ -69,16 +69,11 @@ public class PerfilDrawerActivity extends AppCompatActivity
         info = new ArrayList<Correo>();
 
         Bundle extras = getIntent().getExtras();
-
-//        sangre = extras.getString("sangre");
-//        nombre = extras.getString("nombre");
-//        documento = extras.getString("documento");
-//        correo = extras.getString("correo");
         userid = extras.getString("user");
 
-//        prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
-//        editor = prefs.edit();
-//
+        prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
+        editor = prefs.edit();
+
 //        Ssangre = prefs.getString("sangre", "nosangre");
 //        Snombre = prefs.getString("nombre", "nonombre");
 //        Sdocumento = prefs.getString("documento", "nodocumento");
@@ -90,26 +85,6 @@ public class PerfilDrawerActivity extends AppCompatActivity
         tsangre_perfil = (TextView) findViewById(R.id.tsangre_perfil);
         tcorreo_perfil = (TextView) findViewById(R.id.tcorreo_perfil);
         tcedula_perfil = (TextView) findViewById(R.id.tcedula_perfil);
-
-
-
-//        myRef3.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                mAuth = FirebaseAuth.getInstance();
-//                userid = mAuth.getCurrentUser().getUid();
-//                if (dataSnapshot.child(userid).exists()){
-//                    tnombre_perfil.setText(correoclass.getNombre());
-//                    tsangre_perfil.setText(correoclass.getSangre());
-//                    tcorreo_perfil.setText(correoclass.getCorreo());
-//                    tcedula_perfil.setText(correoclass.getDocumento());
-//                }
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
 
         myRef3.addValueEventListener(new ValueEventListener() {
             @Override
@@ -125,6 +100,7 @@ public class PerfilDrawerActivity extends AppCompatActivity
                     tcorreo_perfil.setText(correo);
                     tcedula_perfil.setText(documento);
 
+
                 }
             }
 
@@ -133,37 +109,6 @@ public class PerfilDrawerActivity extends AppCompatActivity
 
             }
         });
-
-//        if (dataSnapshot.child(documento).exists()){
-//            +
-//            +                    correo2 = info.get(0).getCorreo();
-//            +                    editor.putString("correo", correo2);
-//            +                    nombre2 = info.get(0).getNombre();
-//            +                    editor.putString("nombre", nombre2);
-//            +                    sangre2 = info.get(0).getSangre();
-//            +                    editor.putString("sangre", sangre2);
-//            +                    documento2 = info.get(0).getDocumento();
-//            +                    editor.putString("documento", documento2);
-//            +                }
-
-//        myRef3.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                mAuth2 = FirebaseAuth.getInstance();
-//                userid = mAuth2.getCurrentUser().getUid();
-//                if (dataSnapshot.child(userid).exists()){
-//                    nombre= correoclass.getNombre();
-//                    sangre=correoclass.getSangre();
-//                    correo=correoclass.getCorreo();
-//                    documento=correoclass.getDocumento();
-//                }
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-
 
         binfohosp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -328,9 +273,10 @@ public class PerfilDrawerActivity extends AppCompatActivity
 //            finish();
 
         } else if (id == R.id.cerrar) {
-//            editor.putInt("login",-1);
-//            editor.commit();
+            editor.putInt("login",-1);
+            editor.commit();
             intent = new Intent(PerfilDrawerActivity.this, LoginActivity.class);
+//            userid="0";
             startActivity(intent);
             finish();
             FirebaseAuth.getInstance().signOut();

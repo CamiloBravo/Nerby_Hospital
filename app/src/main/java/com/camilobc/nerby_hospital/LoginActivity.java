@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     EditText eCorreo, eContrasena;
     Button bIniciar, bRegistrar, bEmergencia;
-    String sangre, Correo2, nombre, documento, scorreo, scontrasena, sexo, correo2, nombre2, sangre2, documento2, userid;
+    String sangre, Correo2, nombre, documento, scorreo, scontrasena, sexo, correo2, nombre2, sangre2, documento2, userid, userid2;
     private FirebaseAuth mAuth2;
     //    Bitmap foto_perfil;
     FirebaseDatabase database3;
@@ -41,38 +41,35 @@ public class LoginActivity extends AppCompatActivity {
     Correo correoclass;
     ArrayList<Correo> info;
 
-//    private String FIREBASE_URL="https://nerbyhospitalv1.firebaseio.com/";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);// QUITAR APPBAR
         setContentView(R.layout.activity_login);
 
-//        prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
-//        editor = prefs.edit();
+        prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
+        editor = prefs.edit();
         database3 = FirebaseDatabase.getInstance();
 
         info = new ArrayList<Correo>();
         eCorreo = (EditText) findViewById(R.id.edcorreo);
         Correo2= eCorreo.getText().toString();
-        myRef3 = database3.getReference("Datos");
 
-//        correo2 = prefs.getString("correo", "nocorreo");
-//        nombre2 = prefs.getString("nombre", "nonombre");
-//        sangre2 = prefs.getString("sangre", "nosangre");
-//        documento2 = prefs.getString("documento", "nodocumento");
 
-//        if(prefs.getInt("login", -1) == 1) {
-//            intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
-//            intent.putExtra("sangre", sangre2);
-//            intent.putExtra("nombre", nombre2);
-//            intent.putExtra("documento", documento2);
-//            intent.putExtra("correo", correo2);
-//
-//            startActivity(intent);
-//            finish();
-//        }
+        correo2 = prefs.getString("correo", "nocorreo");
+        nombre2 = prefs.getString("nombre", "nonombre");
+        sangre2 = prefs.getString("sangre", "nosangre");
+        documento2 = prefs.getString("documento", "nodocumento");
+//        userid2 = prefs.getString("user", "nouser");
+
+        if(prefs.getInt("login", -1) == 1) {
+            mAuth2 = FirebaseAuth.getInstance();
+            intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
+            userid = mAuth2.getCurrentUser().getUid();
+            intent.putExtra("user", userid);
+            startActivity(intent);
+            finish();
+        }
 
         eContrasena = (EditText) findViewById(R.id.econtrasena);
         bIniciar = (Button) findViewById(R.id.biniciar);
@@ -94,13 +91,12 @@ public class LoginActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1234);
             }
         });
-
+        userid = mAuth2.getCurrentUser().getUid();
         bIniciar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //                correo2 = eCorreo.getText().toString();
+                myRef3 = database3.getReference("Datos");
                 mAuth2 = FirebaseAuth.getInstance();
-
                 if(eCorreo.getText().toString().equals("") || eContrasena.getText().toString().equals("")){
                     Toast.makeText(getApplicationContext(),"Llene los campos requeridos",Toast.LENGTH_SHORT).show();
                 }else {
@@ -111,15 +107,10 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "El usuario ingresado no existe",
                                         Toast.LENGTH_SHORT).show();
                             } else {
-                                userid = mAuth2.getCurrentUser().getUid();
+
 
                                 intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
                                 intent.putExtra("user", userid);
-//                                intent.putExtra("sangre", sangre2);
-//                                intent.putExtra("nombre", nombre2);
-//                                intent.putExtra("documento", documento2);
-//                                intent.putExtra("correo", correo2);
-
                                 startActivity(intent);
                                 finish();
                                 Toast.makeText(LoginActivity.this, userid,
@@ -129,8 +120,34 @@ public class LoginActivity extends AppCompatActivity {
                     });
                 }
 
-//                editor.putInt("login",1);
-//                editor.commit();
+                myRef3.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.child(userid).exists()){
+                            info.add(dataSnapshot.child(userid).getValue(Correo.class));
+                            nombre2 = info.get(0).getNombre();
+                            sangre2 = info.get(0).getSangre();
+                            correo2 = info.get(0).getCorreo();
+                            documento2 = info.get(0).getDocumento();
+                            editor.putString("sangre",sangre2);
+                            editor.putString("nombre",nombre2);
+                            editor.putString("documento",documento2);
+                            editor.putString("correo",correo2);
+//                            editor.putString("user",userid);
+                            editor.commit();
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+                editor.putInt("login",1);
+                editor.commit();
             }
         });
     }
