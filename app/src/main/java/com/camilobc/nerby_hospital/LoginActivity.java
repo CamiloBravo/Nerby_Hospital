@@ -36,10 +36,10 @@ public class LoginActivity extends AppCompatActivity {
     String sangre, Correo2, nombre, documento, scorreo, scontrasena, sexo, correo2, nombre2, sangre2, documento2, userid;
     private FirebaseAuth mAuth2;
     //    Bitmap foto_perfil;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
-    Usuarios usuarios;
-    ArrayList<Usuarios> info;
+    FirebaseDatabase database3;
+    DatabaseReference myRef3;
+    Correo correoclass;
+    ArrayList<Correo> info;
 
 //    private String FIREBASE_URL="https://nerbyhospitalv1.firebaseio.com/";
 
@@ -49,32 +49,30 @@ public class LoginActivity extends AppCompatActivity {
         this.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);// QUITAR APPBAR
         setContentView(R.layout.activity_login);
 
-        prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
-        editor = prefs.edit();
-        database = FirebaseDatabase.getInstance();
+//        prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
+//        editor = prefs.edit();
+        database3 = FirebaseDatabase.getInstance();
 
-        info = new ArrayList<Usuarios>();
-//        documento = "7";
-
+        info = new ArrayList<Correo>();
         eCorreo = (EditText) findViewById(R.id.edcorreo);
         Correo2= eCorreo.getText().toString();
-        myRef = database.getReference("Usuarios");
+        myRef3 = database3.getReference("Datos");
 
-        scorreo = prefs.getString("correo", "nocorreo");
-        nombre = prefs.getString("nombre", "nonombre");
-        sangre = prefs.getString("sangre", "nosangre");
-        documento = prefs.getString("documento", "nodocumento");
+//        correo2 = prefs.getString("correo", "nocorreo");
+//        nombre2 = prefs.getString("nombre", "nonombre");
+//        sangre2 = prefs.getString("sangre", "nosangre");
+//        documento2 = prefs.getString("documento", "nodocumento");
 
-        if(prefs.getInt("login", -1) == 1) {
-            intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
-            intent.putExtra("sangre", sangre);
-            intent.putExtra("nombre", nombre);
-            intent.putExtra("documento", documento);
-            intent.putExtra("correo", scorreo);
-
-            startActivity(intent);
-            finish();
-        }
+//        if(prefs.getInt("login", -1) == 1) {
+//            intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
+//            intent.putExtra("sangre", sangre2);
+//            intent.putExtra("nombre", nombre2);
+//            intent.putExtra("documento", documento2);
+//            intent.putExtra("correo", correo2);
+//
+//            startActivity(intent);
+//            finish();
+//        }
 
         eContrasena = (EditText) findViewById(R.id.econtrasena);
         bIniciar = (Button) findViewById(R.id.biniciar);
@@ -114,24 +112,25 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                             } else {
                                 userid = mAuth2.getCurrentUser().getUid();
+
                                 intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
-//                                intent.putExtra("user", userid);
-                                intent.putExtra("sangre", sangre);
-                                intent.putExtra("nombre", nombre);
-                                intent.putExtra("documento", documento);
-                                intent.putExtra("correo", scorreo);
+                                intent.putExtra("user", userid);
+//                                intent.putExtra("sangre", sangre2);
+//                                intent.putExtra("nombre", nombre2);
+//                                intent.putExtra("documento", documento2);
+//                                intent.putExtra("correo", correo2);
 
                                 startActivity(intent);
                                 finish();
-                                Toast.makeText(LoginActivity.this, "Bienvenido",
+                                Toast.makeText(LoginActivity.this, userid,
                                         Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
                 }
 
-                editor.putInt("login",1);
-                editor.commit();
+//                editor.putInt("login",1);
+//                editor.commit();
             }
         });
     }

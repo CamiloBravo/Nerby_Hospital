@@ -44,8 +44,6 @@ public class RegistroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
 
-        mAuth = FirebaseAuth.getInstance();
-
         ListaDesple = (Spinner) findViewById(R.id.ListaDesple);
         items = getResources().getStringArray(R.array.Tipo_de_Sangre);
         ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_spinner_item,items);
@@ -76,6 +74,7 @@ public class RegistroActivity extends AppCompatActivity {
                 Intent intent = new Intent();
 
                 database3 = FirebaseDatabase.getInstance();
+                mAuth = FirebaseAuth.getInstance();
                 correo = eCorreo.getText().toString();
                 database = FirebaseDatabase.getInstance();
                 documento = eDocumento.getText().toString();
