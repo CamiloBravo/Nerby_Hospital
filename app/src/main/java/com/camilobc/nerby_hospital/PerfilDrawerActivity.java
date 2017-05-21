@@ -34,7 +34,7 @@ public class PerfilDrawerActivity extends AppCompatActivity
 
     Intent intent;
     TextView tnombre_perfil, tcorreo_perfil, tsangre_perfil, tcedula_perfil;
-    String sangre, nombre, documento, correo, Ssangre, Snombre, Sdocumento, Scorreo, Scontrasena, userid;
+    String sangre, nombre, documento, correo, userid, EPS;
     Spinner ListaSalud;
     RadioButton rMas, rFem;
     String[] items;
@@ -104,10 +104,20 @@ public class PerfilDrawerActivity extends AppCompatActivity
         binfohosp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PerfilDrawerActivity.this, ListaSaludDrawerActivity.class);
-                intent.putExtra("user", userid);
-                startActivity(intent);
-                finish();
+                EPS = ListaSalud.getItemAtPosition(ListaSalud.getSelectedItemPosition()).toString();
+                if (EPS.equals("Coomeva")){
+                    Intent intent = new Intent(PerfilDrawerActivity.this, ListaSaludDrawerActivity.class);
+                    intent.putExtra("user", userid);
+                    startActivity(intent);
+                    finish();
+                }
+                if (EPS.equals("Sura")){
+                    Intent intent = new Intent(PerfilDrawerActivity.this, MapasDrawerActivity.class);
+                    intent.putExtra("user", userid);
+                    startActivity(intent);
+                    finish();
+                }
+
             }
         });
 

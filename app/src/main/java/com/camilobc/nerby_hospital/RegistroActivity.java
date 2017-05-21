@@ -37,6 +37,7 @@ public class RegistroActivity extends AppCompatActivity {
     Usuarios usuarios, usuarios2;
     Correo correoclass;
 
+
     private FirebaseAuth mAuth;
 
     @Override
@@ -51,7 +52,7 @@ public class RegistroActivity extends AppCompatActivity {
         adaptador.setDropDownViewResource(android.R.layout.simple_spinner_item);
         ListaDesple.setAdapter(adaptador);
 
-        sangre = ListaDesple.getItemAtPosition(ListaDesple.getSelectedItemPosition()).toString();
+
 
         eDocumento = (EditText) findViewById(R.id.eId);
         eNombre = (EditText) findViewById(R.id.enombre);
@@ -72,6 +73,8 @@ public class RegistroActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent();
+
+                sangre = ListaDesple.getItemAtPosition(ListaDesple.getSelectedItemPosition()).toString();
 
                 database3 = FirebaseDatabase.getInstance();
                 mAuth = FirebaseAuth.getInstance();
