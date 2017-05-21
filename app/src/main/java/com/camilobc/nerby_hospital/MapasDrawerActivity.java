@@ -21,7 +21,7 @@ public class MapasDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FragmentManager fragmentManager;
-    String sangre, snombre, documento, scorreo, sexo;
+    String sangre, snombre, documento, scorreo, sexo, userid;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
     Intent intent;
@@ -37,13 +37,13 @@ public class MapasDrawerActivity extends AppCompatActivity
         Bundle extras = getIntent().getExtras();
 
 //        sexo = extras.getString("sexo");
-        sangre = extras.getString("sangre");
-        snombre = extras.getString("nombre");
-        documento = extras.getString("documento");
-        scorreo = extras.getString("correo");
+        userid = extras.getString("user");
+//        snombre = extras.getString("nombre");
+//        documento = extras.getString("documento");
+//        scorreo = extras.getString("correo");
 
-//        prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
-//        editor = prefs.edit();
+        prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
+        editor = prefs.edit();
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -200,7 +200,7 @@ public class MapasDrawerActivity extends AppCompatActivity
 
         } else if (id == R.id.miperfil) {
             Intent intent = new Intent(MapasDrawerActivity.this, PerfilDrawerActivity.class);
-            intent.putExtra("nombre", snombre);
+            intent.putExtra("user", userid);
             intent.putExtra("documento", documento);
             intent.putExtra("sangre", sangre);
             intent.putExtra("correo", scorreo);

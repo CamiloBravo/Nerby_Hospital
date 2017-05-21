@@ -57,7 +57,6 @@ public class PerfilDrawerActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         database3 = FirebaseDatabase.getInstance();
-
         myRef3 = database3.getReference("Datos");
 
         ListaSalud = (Spinner) findViewById(R.id.ListaEPS);
@@ -73,12 +72,6 @@ public class PerfilDrawerActivity extends AppCompatActivity
 
         prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
         editor = prefs.edit();
-
-//        Ssangre = prefs.getString("sangre", "nosangre");
-//        Snombre = prefs.getString("nombre", "nonombre");
-//        Sdocumento = prefs.getString("documento", "nodocumento");
-//        Scorreo = prefs.getString("correo", "nocorreo");
-//        Scontrasena = prefs.getString("pass", "nopass");
 
         binfohosp = (Button) findViewById(R.id.binfohospi);
         tnombre_perfil = (TextView) findViewById(R.id.tnombre_perfil);
@@ -99,8 +92,6 @@ public class PerfilDrawerActivity extends AppCompatActivity
                     tsangre_perfil.setText(sangre);
                     tcorreo_perfil.setText(correo);
                     tcedula_perfil.setText(documento);
-
-
                 }
             }
 
@@ -114,10 +105,7 @@ public class PerfilDrawerActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PerfilDrawerActivity.this, ListaSaludDrawerActivity.class);
-                intent.putExtra("nombre", nombre);
-                intent.putExtra("documento", documento);
-                intent.putExtra("sangre", sangre);
-                intent.putExtra("correo", correo);
+                intent.putExtra("user", userid);
                 startActivity(intent);
                 finish();
             }
@@ -178,89 +166,56 @@ public class PerfilDrawerActivity extends AppCompatActivity
 
         if (id == R.id.accidente) {
             Intent intent = new Intent(PerfilDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("nombre", nombre);
-            intent.putExtra("documento", documento);
-            intent.putExtra("sangre", sangre);
-            intent.putExtra("correo", correo);
+            intent.putExtra("user", userid);
             startActivity(intent);
         } else if (id == R.id.quemaduras) {
             Intent intent = new Intent(PerfilDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("nombre", nombre);
-            intent.putExtra("documento", documento);
-            intent.putExtra("sangre", sangre);
-            intent.putExtra("correo", correo);
+            intent.putExtra("user", userid);
             startActivity(intent);
 
         } else if (id == R.id.infecciones) {
             Intent intent = new Intent(PerfilDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("nombre", nombre);
-            intent.putExtra("documento", documento);
-            intent.putExtra("sangre", sangre);
-            intent.putExtra("correo", correo);
+            intent.putExtra("user", userid);
             startActivity(intent);
 
         } else if (id == R.id.alergias) {
             Intent intent = new Intent(PerfilDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("nombre", nombre);
-            intent.putExtra("documento", documento);
-            intent.putExtra("sangre", sangre);
-            intent.putExtra("correo", correo);
+            intent.putExtra("user", userid);
             startActivity(intent);
 
         } else if (id == R.id.hemorragias) {
             Intent intent = new Intent(PerfilDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("nombre", nombre);
-            intent.putExtra("documento", documento);
-            intent.putExtra("sangre", sangre);
-            intent.putExtra("correo", correo);
+            intent.putExtra("user", userid);
             startActivity(intent);
 
         } else if (id == R.id.cabeza) {
             Intent intent = new Intent(PerfilDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("nombre", nombre);
-            intent.putExtra("documento", documento);
-            intent.putExtra("sangre", sangre);
-            intent.putExtra("correo", correo);
+            intent.putExtra("user", userid);
             startActivity(intent);
 
         } else if (id == R.id.cuerpo) {
             Intent intent = new Intent(PerfilDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("nombre",nombre);
-            intent.putExtra("documento", documento);
-            intent.putExtra("sangre", sangre);
-            intent.putExtra("correo", correo);
+            intent.putExtra("user", userid);
             startActivity(intent);
 
         } else if (id == R.id.estomago) {
             Intent intent = new Intent(PerfilDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("nombre", nombre);
-            intent.putExtra("documento", documento);
-            intent.putExtra("sangre", sangre);
-            intent.putExtra("correo", correo);
+            intent.putExtra("user", userid);
             startActivity(intent);
 
         } else if (id == R.id.oido) {
             Intent intent = new Intent(PerfilDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("nombre", nombre);
-            intent.putExtra("documento", documento);
-            intent.putExtra("sangre", sangre);
-            intent.putExtra("correo", correo);
+            intent.putExtra("user", userid);
             startActivity(intent);
 
         } else if (id == R.id.vision) {
             Intent intent = new Intent(PerfilDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("nombre",nombre);
-            intent.putExtra("documento", documento);
-            intent.putExtra("sangre", sangre);
-            intent.putExtra("correo", correo);
+            intent.putExtra("user", userid);
             startActivity(intent);
 
         } else if (id == R.id.piel) {
             Intent intent = new Intent(PerfilDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("nombre", nombre);
-            intent.putExtra("documento", documento);
-            intent.putExtra("sangre", sangre);
-            intent.putExtra("correo", correo);
+            intent.putExtra("user", userid);
             startActivity(intent);
 
 //        } else if (id == R.id.cambiar_datos) {
@@ -276,7 +231,7 @@ public class PerfilDrawerActivity extends AppCompatActivity
             editor.putInt("login",-1);
             editor.commit();
             intent = new Intent(PerfilDrawerActivity.this, LoginActivity.class);
-//            userid="0";
+//            userid=null;
             startActivity(intent);
             finish();
             FirebaseAuth.getInstance().signOut();

@@ -28,7 +28,7 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Intent intent;
-    String sangre, snombre, documento, scorreo;
+    String sangre, snombre, documento, scorreo, userid;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
 
@@ -46,10 +46,7 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
         setContentView(R.layout.activity_lista_salud_drawer);
 
         Bundle extras=getIntent().getExtras();
-        sangre = extras.getString("sangre");
-        snombre = extras.getString("nombre");
-        documento = extras.getString("documento");
-        scorreo = extras.getString("correo");
+        userid = extras.getString("user");
 
         prefs= getSharedPreferences("MisPreferencias",MODE_PRIVATE);
         editor = prefs.edit();
@@ -238,97 +235,61 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
 
         if (id == R.id.accidente) {
             Intent intent = new Intent(ListaSaludDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("nombre", snombre);
-            intent.putExtra("documento", documento);
-            intent.putExtra("sangre", sangre);
-            intent.putExtra("correo", scorreo);
+            intent.putExtra("user", userid);
             startActivity(intent);
         } else if (id == R.id.quemaduras) {
             Intent intent = new Intent(ListaSaludDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("nombre", snombre);
-            intent.putExtra("documento", documento);
-            intent.putExtra("sangre", sangre);
-            intent.putExtra("correo", scorreo);
+            intent.putExtra("user", userid);
             startActivity(intent);
 
         } else if (id == R.id.infecciones) {
             Intent intent = new Intent(ListaSaludDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("nombre", snombre);
-            intent.putExtra("documento", documento);
-            intent.putExtra("sangre", sangre);
-            intent.putExtra("correo", scorreo);
+            intent.putExtra("user", userid);
             startActivity(intent);
 
         } else if (id == R.id.alergias) {
             Intent intent = new Intent(ListaSaludDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("nombre", snombre);
-            intent.putExtra("documento", documento);
-            intent.putExtra("sangre", sangre);
-            intent.putExtra("correo", scorreo);
+            intent.putExtra("user", userid);
             startActivity(intent);
 
         } else if (id == R.id.hemorragias) {
             Intent intent = new Intent(ListaSaludDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("nombre", snombre);
-            intent.putExtra("documento", documento);
-            intent.putExtra("sangre", sangre);
-            intent.putExtra("correo", scorreo);
+            intent.putExtra("user", userid);
             startActivity(intent);
 
         } else if (id == R.id.cabeza) {
             Intent intent = new Intent(ListaSaludDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("nombre", snombre);
-            intent.putExtra("documento", documento);
-            intent.putExtra("sangre", sangre);
-            intent.putExtra("correo", scorreo);
+            intent.putExtra("user", userid);
             startActivity(intent);
 
         } else if (id == R.id.cuerpo) {
             Intent intent = new Intent(ListaSaludDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("nombre", snombre);
-            intent.putExtra("documento", documento);
-            intent.putExtra("sangre", sangre);
-            intent.putExtra("correo", scorreo);
+            intent.putExtra("user", userid);
             startActivity(intent);
 
         } else if (id == R.id.estomago) {
             Intent intent = new Intent(ListaSaludDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("nombre", snombre);
-            intent.putExtra("documento", documento);
-            intent.putExtra("sangre", sangre);
-            intent.putExtra("correo", scorreo);
+            intent.putExtra("user", userid);
             startActivity(intent);
 
         } else if (id == R.id.oido) {
             Intent intent = new Intent(ListaSaludDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("nombre", snombre);
-            intent.putExtra("documento", documento);
-            intent.putExtra("sangre", sangre);
-            intent.putExtra("correo", scorreo);
+            intent.putExtra("user", userid);
             startActivity(intent);
 
         } else if (id == R.id.vision) {
             Intent intent = new Intent(ListaSaludDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("nombre", snombre);
-            intent.putExtra("documento", documento);
-            intent.putExtra("sangre", sangre);
-            intent.putExtra("correo", scorreo);
+            intent.putExtra("user", userid);
             startActivity(intent);
 
         } else if (id == R.id.piel) {
             Intent intent = new Intent(ListaSaludDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("nombre", snombre);
-            intent.putExtra("documento", documento);
-            intent.putExtra("sangre", sangre);
-            intent.putExtra("correo", scorreo);
+            intent.putExtra("user", userid);
             startActivity(intent);
 
         } else if (id == R.id.miperfil) {
             Intent intent = new Intent(ListaSaludDrawerActivity.this, PerfilDrawerActivity.class);
-            intent.putExtra("nombre", snombre);
-            intent.putExtra("documento", documento);
-            intent.putExtra("sangre", sangre);
-            intent.putExtra("correo", scorreo);
+            intent.putExtra("user", userid);
             startActivity(intent);
             finish();
 

@@ -52,15 +52,11 @@ public class LoginActivity extends AppCompatActivity {
         database3 = FirebaseDatabase.getInstance();
 
         info = new ArrayList<Correo>();
-        eCorreo = (EditText) findViewById(R.id.edcorreo);
-        Correo2= eCorreo.getText().toString();
-
 
         correo2 = prefs.getString("correo", "nocorreo");
         nombre2 = prefs.getString("nombre", "nonombre");
         sangre2 = prefs.getString("sangre", "nosangre");
         documento2 = prefs.getString("documento", "nodocumento");
-//        userid2 = prefs.getString("user", "nouser");
 
         if(prefs.getInt("login", -1) == 1) {
             mAuth2 = FirebaseAuth.getInstance();
@@ -75,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         bIniciar = (Button) findViewById(R.id.biniciar);
         bRegistrar = (Button) findViewById(R.id.bregistrese);
         bEmergencia = (Button) findViewById(R.id.bemergencia);
+        eCorreo = (EditText) findViewById(R.id.edcorreo);
 
         bEmergencia.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1234);
             }
         });
-        userid = mAuth2.getCurrentUser().getUid();
+
         bIniciar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -107,47 +104,46 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "El usuario ingresado no existe",
                                         Toast.LENGTH_SHORT).show();
                             } else {
-
-
+                                editor.putInt("login",1);
+                                editor.commit();
+                                userid = mAuth2.getCurrentUser().getUid();
                                 intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
                                 intent.putExtra("user", userid);
                                 startActivity(intent);
                                 finish();
                                 Toast.makeText(LoginActivity.this, userid,
                                         Toast.LENGTH_SHORT).show();
+
+                                myRef3.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.child(userid).exists()){
+                                            info.add(dataSnapshot.child(userid).getValue(Correo.class));
+                                            nombre2 = info.get(0).getNombre();
+                                            sangre2 = info.get(0).getSangre();
+                                            correo2 = info.get(0).getCorreo();
+                                            documento2 = info.get(0).getDocumento();
+                                            editor.putString("sangre",sangre2);
+                                            editor.putString("nombre",nombre2);
+                                            editor.putString("documento",documento2);
+                                            editor.putString("correo",correo2);
+                                            editor.commit();
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                        Toast.makeText(LoginActivity.this, "El userid no existe",
+                                                Toast.LENGTH_SHORT).show();
+
+                                    }
+                                });
                             }
                         }
                     });
+
                 }
-
-                myRef3.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.child(userid).exists()){
-                            info.add(dataSnapshot.child(userid).getValue(Correo.class));
-                            nombre2 = info.get(0).getNombre();
-                            sangre2 = info.get(0).getSangre();
-                            correo2 = info.get(0).getCorreo();
-                            documento2 = info.get(0).getDocumento();
-                            editor.putString("sangre",sangre2);
-                            editor.putString("nombre",nombre2);
-                            editor.putString("documento",documento2);
-                            editor.putString("correo",correo2);
-//                            editor.putString("user",userid);
-                            editor.commit();
-
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-
-                editor.putInt("login",1);
-                editor.commit();
             }
         });
     }
