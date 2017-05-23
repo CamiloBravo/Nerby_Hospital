@@ -90,61 +90,59 @@ public class RegistroActivity extends AppCompatActivity {
                 tel_acudiente = eTelAcudiente.getText().toString();
                 contra = eContrasena.getText().toString();
 
-                mAuth.createUserWithEmailAndPassword(correo, contra)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                if (!task.isSuccessful()) {
-                                    Toast.makeText(RegistroActivity.this, R.string.auth_failed,
-                                            Toast.LENGTH_SHORT).show();
+
+                if(eNombre.getText().toString().equals("") || eDocumento.getText().toString().equals("") ||
+                        eTelefono.getText().toString().equals("") || eContrasena.getText().toString().equals("") ||
+                        eR_contrasena.getText().toString().equals("") || eCorreo.getText().toString().equals("") ||
+                        eAcudiente.getText().toString().equals("") ||
+                        sangre.equals("") || eTelAcudiente.getText().toString().equals("") )
+                {
+                    Toast.makeText(getApplicationContext(),"Llene los campos obligatorios",Toast.LENGTH_SHORT).show();
+                    setResult(RESULT_CANCELED, intent);
+                } else if(!(eContrasena.getText().toString().equals(eR_contrasena.getText().toString()))){
+                    Toast.makeText(getApplicationContext(),"La contraseña no coincide",Toast.LENGTH_SHORT).show();
+                    setResult(RESULT_CANCELED, intent);
+                }else {
+                    if(masculino.isChecked()){
+                        sexo="Masculino";
+                    }else if(femenino.isChecked()){
+                        sexo="Femenino";
+                    }
+
+                    mAuth.createUserWithEmailAndPassword(correo, contra)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    Intent intent = new Intent();
+                                    if (!task.isSuccessful()) {
+
+                                    setResult(RESULT_CANCELED, intent);
+                                        Toast.makeText(RegistroActivity.this, "Ingrese un correo y contraseña validos",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                    else{
+                                        userid = mAuth.getCurrentUser().getUid();
+                                        myRef = database.getReference("Usuarios").child(String.valueOf(documento));
+                                        usuarios = new Usuarios(String.valueOf(correo), nombre, telefono, documento, sexo, sangre, alergias, enfermedades, acudiente, tel_acudiente);
+                                        myRef.setValue(usuarios);
+                                        myRef3 = database3.getReference("Datos").child(String.valueOf(userid));
+                                        correoclass = new Correo(String.valueOf(correo), nombre, telefono, documento, sexo, sangre, alergias, enfermedades, acudiente, tel_acudiente);
+                                        myRef3.setValue(correoclass);
+
+                                        setResult(RESULT_OK, intent);
+                                        finish();
+
+                                        Toast.makeText(RegistroActivity.this, "Proceso exitoso",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                                else{
-                                    userid = mAuth.getCurrentUser().getUid();
-                                    myRef = database.getReference("Usuarios").child(String.valueOf(documento));
-                                    usuarios = new Usuarios(String.valueOf(correo), nombre, telefono, documento, sexo, sangre, alergias, enfermedades, acudiente, tel_acudiente);
-                                    myRef.setValue(usuarios);
-                                    myRef3 = database3.getReference("Datos").child(String.valueOf(userid));
-                                    correoclass = new Correo(String.valueOf(correo), nombre, telefono, documento, sexo, sangre, alergias, enfermedades, acudiente, tel_acudiente);
-                                    myRef3.setValue(correoclass);
+                            });
 
-                                    Toast.makeText(RegistroActivity.this, "Proceso exitoso",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-
-//                if(eNombre.getText().toString().equals("") || eDocumento.getText().toString().equals("") ||
-//                        eTelefono.getText().toString().equals("") || eContrasena.getText().toString().equals("") ||
-//                        eR_contrasena.getText().toString().equals("") || eCorreo.getText().toString().equals("") ||
-//                        eEnfermedades.getText().toString().equals("") || eAcudiente.getText().toString().equals("") ||
-//                        sangre.equals("") ||
-//                        eAlergias.getText().toString().equals("") || eTelAcudiente.getText().toString().equals("") )
-//                {
-//                    Toast.makeText(getApplicationContext(),"Llene todos los campos",Toast.LENGTH_SHORT).show();
-//                    setResult(RESULT_CANCELED, intent);
-//                } else if(!(eContrasena.getText().toString().equals(eR_contrasena.getText().toString()))){
-//                    Toast.makeText(getApplicationContext(),"La contraseña no coincide",Toast.LENGTH_SHORT).show();
-//                    setResult(RESULT_CANCELED, intent);
-//                }else {
-//                    if(masculino.isChecked()){
-//                        sexo="Masculino";
-//                    }else if(femenino.isChecked()){
-//                        sexo="Femenino";
-//                    }
-//
-//                    intent.putExtra("sangre", sangre);
-//                    intent.putExtra("nombre", eNombre.getText().toString());
-//                    intent.putExtra("documento", eDocumento.getText().toString());
-//                    intent.putExtra("correo", eCorreo.getText().toString());
-//                    intent.putExtra("pass", eContrasena.getText().toString());
-//
 //                    setResult(RESULT_OK, intent);
 //                    finish();
-//                }
+                }
 
-                setResult(RESULT_OK, intent);
-                finish();
             }
         });
         bcancelar.setOnClickListener(new View.OnClickListener(){

@@ -15,6 +15,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Los campos con (*) son obligatorios."
+            android:textColor="@color/white"
+            android:textSize="20sp"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -157,7 +163,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:hint="Ingrese una contraseña"
+            android:hint="Ingrese una contraseña(*)"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:id="@+id/econtrasenar"

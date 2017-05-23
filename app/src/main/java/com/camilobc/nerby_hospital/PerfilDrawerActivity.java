@@ -1,8 +1,17 @@
 package com.camilobc.nerby_hospital;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -27,6 +36,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class PerfilDrawerActivity extends AppCompatActivity
@@ -34,12 +47,12 @@ public class PerfilDrawerActivity extends AppCompatActivity
 
     Intent intent;
     TextView tnombre_perfil, tcorreo_perfil, tsangre_perfil, tcedula_perfil;
-    String sangre, nombre, documento, correo, userid, EPS;
+    String sangre, nombre, documento, correo, userid, EPS, name="";
     Spinner ListaSalud;
     RadioButton rMas, rFem;
     String[] items;
     Button binfohosp;
-    ImageView iusuario;
+    ImageView iUsuario;
     //    Bitmap imageBitmap;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
@@ -48,6 +61,10 @@ public class PerfilDrawerActivity extends AppCompatActivity
     DatabaseReference myRef3;
     Correo correoclass;
     ArrayList<Correo> info;
+
+    private final int PHOTO_CODE =100;
+    private final int SELECT_PICTURE =100;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +95,8 @@ public class PerfilDrawerActivity extends AppCompatActivity
         tsangre_perfil = (TextView) findViewById(R.id.tsangre_perfil);
         tcorreo_perfil = (TextView) findViewById(R.id.tcorreo_perfil);
         tcedula_perfil = (TextView) findViewById(R.id.tcedula_perfil);
+        iUsuario = (ImageView) findViewById(R.id.fot_per);
+        name = Environment.getExternalStorageDirectory()+"/foto.jpg";
 
         myRef3.addValueEventListener(new ValueEventListener() {
             @Override
@@ -109,13 +128,13 @@ public class PerfilDrawerActivity extends AppCompatActivity
                     Intent intent = new Intent(PerfilDrawerActivity.this, ListaSaludDrawerActivity.class);
                     intent.putExtra("user", userid);
                     startActivity(intent);
-                    finish();
+//                    finish();
                 }
                 if (EPS.equals("Sura")){
-                    Intent intent = new Intent(PerfilDrawerActivity.this, MapasDrawerActivity.class);
+                    Intent intent = new Intent(PerfilDrawerActivity.this, ListaSuraActivity.class);
                     intent.putExtra("user", userid);
                     startActivity(intent);
-                    finish();
+//                    finish();
                 }
 
             }
@@ -130,6 +149,71 @@ public class PerfilDrawerActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+//    public void foto(View view) {
+//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        Uri salida =  Uri.fromFile(new File(name)); //con esta linea y la de abajo almaceno en el dispositivo
+//        intent.putExtra(MediaStore.EXTRA_OUTPUT,salida);
+//        startActivityForResult(intent,1234);
+//    }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (requestCode==1234 && resultCode==RESULT_OK);
+//        Bitmap bMap = BitmapFactory.decodeFile(name);
+//        Matrix mat = new Matrix();
+//        mat.postRotate(90);
+//        Bitmap bMapRotate = Bitmap.createBitmap(bMap,0,0,bMap.getWidth(),bMap.getHeight(),mat,true);
+//        iUsuario.setImageBitmap(bMapRotate);
+//    }
+
+    public void foto(View view){
+        final CharSequence[] options ={"Tomar foto", "Elegir de galeria"};
+        final AlertDialog.Builder builder = new AlertDialog.Builder(PerfilDrawerActivity.this);
+        builder.setTitle("Elija una opción");
+
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (options[which]=="Tomar foto"){
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    Uri salida =  Uri.fromFile(new File(name)); //con esta linea y la de abajo almaceno en el dispositivo
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT,salida);
+                    startActivityForResult(intent,1235);
+
+                }else if (options[which]=="Elegir de galeria"){
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                    startActivityForResult(intent,1234);
+
+                }
+            }
+        });
+        builder.show();
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode==1234 && resultCode==RESULT_OK){
+            Uri selectImage = data.getData();
+            try {
+                InputStream is = getContentResolver().openInputStream(selectImage);
+                BufferedInputStream bis = new BufferedInputStream(is);
+                Bitmap bitmap = BitmapFactory.decodeStream(bis);
+                iUsuario.setImageBitmap(bitmap);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }else
+            if (requestCode==1235 && resultCode==RESULT_OK){
+                Bitmap bMap = BitmapFactory.decodeFile(name);
+                Matrix mat = new Matrix();
+                mat.postRotate(90);
+                Bitmap bMapRotate = Bitmap.createBitmap(bMap,0,0,bMap.getWidth(),bMap.getHeight(),mat,true);
+                iUsuario.setImageBitmap(bMapRotate);
+        }
+    }
+
 
     @Override
     public void onBackPressed() {

@@ -143,8 +143,8 @@ public class SaludCoopDrawerActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.cerrar_sesion) {
-//            editor.putInt("login",-1);
-//            editor.commit();
+            editor.putInt("login",-1);
+            editor.commit();
             intent = new Intent(SaludCoopDrawerActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
