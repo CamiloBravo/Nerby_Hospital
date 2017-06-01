@@ -40,4 +40,5 @@
     <string name="title_activity_leon13_drawer">Clínica León XIII</string>
     <string name="title_activity_sanvicente_drawer">San Vicente Fundación</string>
     <string name="auth_failed">Registro fallido</string>
+    <string name="facebook_app_id">493044411034741</string>
 </resources>

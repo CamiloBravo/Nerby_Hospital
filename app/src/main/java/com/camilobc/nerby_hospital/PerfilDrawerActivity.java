@@ -28,7 +28,9 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -56,7 +58,7 @@ public class PerfilDrawerActivity extends AppCompatActivity
     //    Bitmap imageBitmap;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
-    private FirebaseAuth mAuth2;
+    private FirebaseAuth mAuth;
     FirebaseDatabase database3;
     DatabaseReference myRef3;
     Correo correoclass;
@@ -75,6 +77,7 @@ public class PerfilDrawerActivity extends AppCompatActivity
 
         database3 = FirebaseDatabase.getInstance();
         myRef3 = database3.getReference("Datos");
+        mAuth = FirebaseAuth.getInstance();
 
         ListaSalud = (Spinner) findViewById(R.id.ListaEPS);
         items = getResources().getStringArray(R.array.EPS);
@@ -85,10 +88,12 @@ public class PerfilDrawerActivity extends AppCompatActivity
         info = new ArrayList<Correo>();
 
         Bundle extras = getIntent().getExtras();
-        userid = extras.getString("user");
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        userid = mAuth.getCurrentUser().getUid();   //obtiene el usuario actual
+        //userid = extras.getString("user");
 
-        prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
-        editor = prefs.edit();
+        /*prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
+        editor = prefs.edit();*/
 
         binfohosp = (Button) findViewById(R.id.binfohospi);
         tnombre_perfil = (TextView) findViewById(R.id.tnombre_perfil);
@@ -205,12 +210,12 @@ public class PerfilDrawerActivity extends AppCompatActivity
                 e.printStackTrace();
             }
         }else
-            if (requestCode==1235 && resultCode==RESULT_OK){
-                Bitmap bMap = BitmapFactory.decodeFile(name);
-                Matrix mat = new Matrix();
-                mat.postRotate(90);
-                Bitmap bMapRotate = Bitmap.createBitmap(bMap,0,0,bMap.getWidth(),bMap.getHeight(),mat,true);
-                iUsuario.setImageBitmap(bMapRotate);
+        if (requestCode==1235 && resultCode==RESULT_OK){
+            Bitmap bMap = BitmapFactory.decodeFile(name);
+            Matrix mat = new Matrix();
+            mat.postRotate(90);
+            Bitmap bMapRotate = Bitmap.createBitmap(bMap,0,0,bMap.getWidth(),bMap.getHeight(),mat,true);
+            iUsuario.setImageBitmap(bMapRotate);
         }
     }
 
@@ -322,13 +327,14 @@ public class PerfilDrawerActivity extends AppCompatActivity
 //            finish();
 
         } else if (id == R.id.cerrar) {
-            editor.putInt("login",-1);
-            editor.commit();
+            // editor.putInt("login",-1);
+            // editor.commit();
+            LoginManager.getInstance().logOut();
+            FirebaseAuth.getInstance().signOut();
             intent = new Intent(PerfilDrawerActivity.this, LoginActivity.class);
 //            userid=null;
             startActivity(intent);
             finish();
-            FirebaseAuth.getInstance().signOut();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

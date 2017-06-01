@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.camilobc.nerby_hospital"
-        minSdkVersion 23
+        minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -34,7 +34,7 @@ dependencies {
     compile 'com.google.firebase:firebase-core:10.2.6'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'com.google.android.gms:play-services-auth:10.2.6'
-    compile 'com.firebaseui:firebase-ui:1.2.0'
+
     testCompile 'junit:junit:4.12'
 }
 apply plugin: 'com.google.gms.google-services'
