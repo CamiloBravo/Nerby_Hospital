@@ -78,7 +78,8 @@
             android:label="@string/title_activity_sanvicente_drawer"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ListaSuraActivity" />
-        <activity android:name=".DoctorActivity"></activity>
+        <activity android:name=".DoctorActivity" />
+        <activity android:name=".PerfilActivity"></activity>
     </application>
 
 </manifest>

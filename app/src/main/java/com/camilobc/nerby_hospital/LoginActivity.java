@@ -120,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.putString("documento", documento2);
                                 editor.putString("correo", correo2);
                                 editor.commit();*/
-                                intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);;
+                                intent = new Intent(LoginActivity.this, PerfilActivity.class);;
                                 startActivity(intent);//lo envia al perfil
                                 finish();
 
@@ -253,7 +253,7 @@ public class LoginActivity extends AppCompatActivity {
                                 else {
                                     //  editor.putInt("login",1);
                                     //  editor.commit();
-                                    intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
+                                    intent = new Intent(LoginActivity.this, PerfilActivity.class);
                                     //intent.putExtra("user", userid);
                                     startActivity(intent);
                                     finish();
@@ -343,7 +343,7 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.putString("documento", documento2);
                                 editor.putString("correo", correo2);
                                 editor.commit();*/
-                                intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
+                                intent = new Intent(LoginActivity.this, PerfilActivity.class);
                                 //intent.putExtra("optLog", optLog);
                                 startActivity(intent);
                                 finish();
@@ -421,7 +421,7 @@ public class LoginActivity extends AppCompatActivity {
                                         editor.putString("documento", documento2);
                                         editor.putString("correo", correo2);
                                         editor.commit();*/
-                                        intent = new Intent(LoginActivity.this, PerfilDrawerActivity.class);
+                                        intent = new Intent(LoginActivity.this, PerfilActivity.class);
                                         //intent.putExtra("optLog", optLog);
                                         startActivity(intent);
                                         finish();
