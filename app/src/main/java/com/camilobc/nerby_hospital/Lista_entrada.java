@@ -5,45 +5,40 @@ package com.camilobc.nerby_hospital;
  */
 
 public class Lista_entrada {
-    private int idImagen;
-    private String nombre, descrip, direc;
+//    int idImagen;
+    String Direccion, Nombre, Telefono;
 
-    public Lista_entrada(int idImagen, String nombre, String descrip, String direc) {
-        this.idImagen = idImagen;
-        this.nombre = nombre;
-        this.descrip = descrip;
-        this.direc = direc;
+    public Lista_entrada(){
+
     }
 
-    public int getIdImagen() {
-        return idImagen;
+    public Lista_entrada(String dirección, String nombre, String teléfono) {
+        this.Direccion = dirección;
+        this.Nombre = nombre;
+        this.Telefono = teléfono;
     }
 
-    public void setIdImagen(int idImagen) {
-        this.idImagen = idImagen;
+    public String getDireccion() {
+        return Direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.Direccion = direccion;
     }
 
     public String getNombre() {
-        return nombre;
+        return Nombre;
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.Nombre = nombre;
     }
 
-    public String getDescrip() {
-        return descrip;
+    public String getTelefono() {
+        return Telefono;
     }
 
-    public void setDescrip(String descrip) {
-        this.descrip = descrip;
-    }
-
-    public String getDirec() {
-        return direc;
-    }
-
-    public void setDirec(String direc) {
-        this.direc = direc;
+    public void setTelefono(String telefono) {
+        this.Telefono = telefono;
     }
 }

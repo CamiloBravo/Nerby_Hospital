@@ -24,20 +24,30 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
 public class ListaSaludDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Intent intent;
-    String sangre, snombre, documento, scorreo, userid;
-    SharedPreferences prefs;
-    SharedPreferences.Editor editor;
+    String sangre, snombre, documento, scorreo, userid, eps;
+//    SharedPreferences prefs;
+//    SharedPreferences.Editor editor;
 
-    private Lista_entrada[] datos=new Lista_entrada[]{
-            new Lista_entrada(R.drawable.saludcoop, "Saludcoop", "Clinica", "calle 7 #12-A"),
-            new Lista_entrada(R.drawable.leon13, "Clinica Leon XIII", "Clinica", "calle 9 #13-B"),
-            new Lista_entrada(R.drawable.hospsanvicente, "San Vicente Fundación", "Hospital Universitario", "calle 8 #11-A")
-    };
-
+//    private Lista_entrada[] datos=new Lista_entrada[]{
+//            new Lista_entrada(R.drawable.saludcoop, "Saludcoop", "Clinica", "calle 7 #12-A"),
+//            new Lista_entrada(R.drawable.leon13, "Clinica Leon XIII", "Clinica", "calle 9 #13-B"),
+//            new Lista_entrada(R.drawable.hospsanvicente, "San Vicente Fundación", "Hospital Universitario", "calle 8 #11-A")
+//    };
+    ArrayList<DatosHospi> datoshospi;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
     ListView list;
 
     @Override
@@ -46,51 +56,81 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
         setContentView(R.layout.activity_lista_salud_drawer);
 
         Bundle extras=getIntent().getExtras();
-        userid = extras.getString("user");
+        eps = extras.getString("eps");
 
-        prefs= getSharedPreferences("MisPreferencias",MODE_PRIVATE);
-        editor = prefs.edit();
+//        prefs= getSharedPreferences("MisPreferencias",MODE_PRIVATE);
+//        editor = prefs.edit();
 
-        list = (ListView) findViewById(R.id.list);
-        Adapter adapter= new Adapter(this, datos);
+        database = FirebaseDatabase.getInstance();
+        datoshospi = new ArrayList<DatosHospi>();
 
-        list.setAdapter(adapter);
-
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        myRef = database.getReference("Clinicas").child(eps);
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String data= ((Lista_entrada) parent.getItemAtPosition(position)).getNombre();
-                Toast.makeText(getApplicationContext(),String.valueOf(position),Toast.LENGTH_SHORT).show();
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot: dataSnapshot.getChildren()){
+                    datoshospi.add(userSnapshot.getValue(DatosHospi.class));
+                }
+            }
 
-                if (position == 0) {
-                    Intent intent=new Intent(ListaSaludDrawerActivity.this, SaludCoopDrawerActivity.class);
-                    intent.putExtra("nombre", snombre);
-                    intent.putExtra("documento", documento);
-                    intent.putExtra("sangre", sangre);
-                    intent.putExtra("correo", scorreo);
-                    startActivity(intent);
-                }
-                if (position == 1) {
-                    Intent intent=new Intent(ListaSaludDrawerActivity.this, Leon13DrawerActivity.class);
-                    intent.putExtra("nombre", snombre);
-                    intent.putExtra("documento", documento);
-                    intent.putExtra("sangre", sangre);
-                    intent.putExtra("correo", scorreo);
-                    startActivity(intent);
-                }
-                if (position == 2) {
-                    Intent intent=new Intent(ListaSaludDrawerActivity.this, SanvicenteDrawerActivity.class);
-                    intent.putExtra("nombre", snombre);
-                    intent.putExtra("documento", documento);
-                    intent.putExtra("sangre", sangre);
-                    intent.putExtra("correo", scorreo);
-                    startActivity(intent);
-                }
-//                Intent intent=new Intent(ListActivity.this, HotelActivity.class);
-//                startActivity(intent);
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         });
+//        myRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for (DataSnapshot userSnapshot: dataSnapshot.getChildren()){
+//                    lista_entrada.add(userSnapshot.getValue(Lista_entrada.class));
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+
+        list = (ListView) findViewById(R.id.list);
+        Adapter adapter= new Adapter(this, datoshospi);
+        list.setAdapter(adapter);
+
+//        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                String data= ((Lista_entrada) parent.getItemAtPosition(position)).getNombre();
+//                Toast.makeText(getApplicationContext(),String.valueOf(position),Toast.LENGTH_SHORT).show();
+//
+//                if (position == 0) {
+//                    Intent intent=new Intent(ListaSaludDrawerActivity.this, SaludCoopDrawerActivity.class);
+//                    intent.putExtra("nombre", snombre);
+//                    intent.putExtra("documento", documento);
+//                    intent.putExtra("sangre", sangre);
+//                    intent.putExtra("correo", scorreo);
+//                    startActivity(intent);
+//                }
+//                if (position == 1) {
+//                    Intent intent=new Intent(ListaSaludDrawerActivity.this, Leon13DrawerActivity.class);
+//                    intent.putExtra("nombre", snombre);
+//                    intent.putExtra("documento", documento);
+//                    intent.putExtra("sangre", sangre);
+//                    intent.putExtra("correo", scorreo);
+//                    startActivity(intent);
+//                }
+//                if (position == 2) {
+//                    Intent intent=new Intent(ListaSaludDrawerActivity.this, SanvicenteDrawerActivity.class);
+//                    intent.putExtra("nombre", snombre);
+//                    intent.putExtra("documento", documento);
+//                    intent.putExtra("sangre", sangre);
+//                    intent.putExtra("correo", scorreo);
+//                    startActivity(intent);
+//                }
+////                Intent intent=new Intent(ListActivity.this, HotelActivity.class);
+////                startActivity(intent);
+//
+//            }
+//        });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -162,32 +202,55 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
 //        return super.onOptionsItemSelected(item);
 //    }
 
-    class Adapter extends ArrayAdapter<Lista_entrada> {
+    class Adapter extends ArrayAdapter<DatosHospi> {
 
-        public Adapter(@NonNull Context context, Lista_entrada[] datos) { //recibe contecto y arreglo
-            super(context, R.layout.list_item,datos); //Retorna el array con la info
+        public Adapter(@NonNull Context context, ArrayList<DatosHospi> datoshospi) { //recibe contecto y arreglo
+            super(context, R.layout.list_item, datoshospi); //Retorna el array con la info
         }
+
+
+
         //ctrl + O y buscar getview
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+//        @NonNull
+//        @Override
+//        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+//            LayoutInflater inflater = LayoutInflater.from(getContext());
+//            View item = inflater.inflate(R.layout.list_item, null);
+//
+//            TextView nombre=(TextView) item.findViewById(R.id.Nombre);
+//            nombre.setText(datos[position].getNombre());
+//
+//            TextView descrip=(TextView) item.findViewById(R.id.Descrip);
+//            descrip.setText(datos[position].getDescrip());
+//
+//            TextView direc=(TextView) item.findViewById(R.id.Direcc);
+//            direc.setText(datos[position].getDirec());
+//
+//            ImageView imagen= (ImageView) item.findViewById(R.id.iFoto);
+//            imagen.setImageResource(datos[position].getIdImagen());
+//
+//            return item;
+//            //return super.getView(position, convertView, parent);
+//        }
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            DatosHospi datoshospi = getItem(position);
+
             LayoutInflater inflater = LayoutInflater.from(getContext());
             View item = inflater.inflate(R.layout.list_item, null);
 
-            TextView nombre=(TextView) item.findViewById(R.id.Nombre);
-            nombre.setText(datos[position].getNombre());
+            TextView nombre = (TextView) item.findViewById(R.id.Nombre);
+            nombre.setText(datoshospi.getNombre());
 
-            TextView descrip=(TextView) item.findViewById(R.id.Descrip);
-            descrip.setText(datos[position].getDescrip());
+            TextView telefono = (TextView) item.findViewById(R.id.Tel);
+            telefono.setText(datoshospi.getTelefono());
 
-            TextView direc=(TextView) item.findViewById(R.id.Direcc);
-            direc.setText(datos[position].getDirec());
+            TextView direccion = (TextView) item.findViewById(R.id.Direc);
+            direccion.setText(datoshospi.getDireccion());
 
-            ImageView imagen= (ImageView) item.findViewById(R.id.iFoto);
-            imagen.setImageResource(datos[position].getIdImagen());
+
 
             return item;
-            //return super.getView(position, convertView, parent);
         }
     }
 
@@ -217,8 +280,8 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.cerrar) {
-            editor.putInt("login",-1);
-            editor.commit();
+//            editor.putInt("login",-1);
+//            editor.commit();
             intent = new Intent(ListaSaludDrawerActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
@@ -294,8 +357,8 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
             finish();
 
         } else if (id == R.id.cerrar) {
-            editor.putInt("login",-1);
-            editor.commit();
+//            editor.putInt("login",-1);
+//            editor.commit();
             intent = new Intent(ListaSaludDrawerActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();

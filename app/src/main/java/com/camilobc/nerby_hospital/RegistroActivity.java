@@ -210,7 +210,7 @@ public class RegistroActivity extends AppCompatActivity {
                         }
                         userid = mAuth.getCurrentUser().getUid();
                         myRef = database.getReference("Usuarios").child(String.valueOf(documento));
-                        usuarios = new Usuarios(String.valueOf(correo), nombre, telefono, documento, sexo, sangre, alergias, enfermedades, acudiente, tel_acudiente);
+                        usuarios = new Usuarios(String.valueOf(documento), nombre, telefono, correo, sexo, sangre, alergias, enfermedades, acudiente, tel_acudiente);
                         myRef.setValue(usuarios);
                         myRef3 = database3.getReference("Datos").child(String.valueOf(userid));
                         correoclass = new Correo(String.valueOf(correo), nombre, telefono, documento, sexo, sangre, alergias, enfermedades, acudiente, tel_acudiente);

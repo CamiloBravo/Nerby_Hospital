@@ -114,18 +114,21 @@ public class PerfilActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EPS = ListaSalud.getItemAtPosition(ListaSalud.getSelectedItemPosition()).toString();
-                if (EPS.equals("Coomeva")){
-                    Intent intent = new Intent(PerfilActivity.this, ListaSaludDrawerActivity.class);
-                    intent.putExtra("user", userid);
-                    startActivity(intent);
-//                    finish();
-                }
-                if (EPS.equals("Sura")){
-                    Intent intent = new Intent(PerfilActivity.this, ListaSuraActivity.class);
-                    intent.putExtra("user", userid);
-                    startActivity(intent);
-//                    finish();
-                }
+                Intent intent = new Intent(PerfilActivity.this, ListaSaludDrawerActivity.class);
+                intent.putExtra("eps", EPS);
+                startActivity(intent);
+//                if (EPS.equals("Coomeva")){
+//                    Intent intent = new Intent(PerfilActivity.this, ListaSaludDrawerActivity.class);
+//                    intent.putExtra("eps", EPS);
+//                    startActivity(intent);
+////                    finish();
+//                }
+//                if (EPS.equals("Sura")){
+//                    Intent intent = new Intent(PerfilActivity.this, ListaSuraActivity.class);
+//                    intent.putExtra("eps", EPS);
+//                    startActivity(intent);
+////                    finish();
+//                }
 
             }
         });
