@@ -109,7 +109,13 @@ public class LoginActivity extends AppCompatActivity {
                     myRef3.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.child(userid).exists()) { //cuando se ha creado en la base de datos entra acá
+                            if (userid.equals("auOvjKwIrqQ9Wtazh7I6wK2m0wt1")){
+                                intent = new Intent(LoginActivity.this, DoctorActivity.class);
+                                intent.putExtra("user", userid);
+                                startActivity(intent);
+                                finish();
+                            }
+                            else if (dataSnapshot.child(userid).exists()) { //cuando se ha creado en la base de datos entra acá
                                 info.add(dataSnapshot.child(userid).getValue(Correo.class));
                                 nombre2 = info.get(0).getNombre();
                                 sangre2 = info.get(0).getSangre();
@@ -410,6 +416,7 @@ public class LoginActivity extends AppCompatActivity {
                             myRef3.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
+
                                     if (dataSnapshot.child(userid).exists()) {//si el usuario loggeado está ya en la base de datos con toda la info
                                         info.add(dataSnapshot.child(userid).getValue(Correo.class));
                                         nombre2 = info.get(0).getNombre();
