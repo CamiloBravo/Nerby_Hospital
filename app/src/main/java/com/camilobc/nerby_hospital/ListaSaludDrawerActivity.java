@@ -24,6 +24,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,14 +38,7 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
 
     Intent intent;
     String sangre, snombre, documento, scorreo, userid, eps;
-//    SharedPreferences prefs;
-//    SharedPreferences.Editor editor;
 
-//    private Lista_entrada[] datos=new Lista_entrada[]{
-//            new Lista_entrada(R.drawable.saludcoop, "Saludcoop", "Clinica", "calle 7 #12-A"),
-//            new Lista_entrada(R.drawable.leon13, "Clinica Leon XIII", "Clinica", "calle 9 #13-B"),
-//            new Lista_entrada(R.drawable.hospsanvicente, "San Vicente Fundación", "Hospital Universitario", "calle 8 #11-A")
-//    };
     ArrayList<DatosHospi> datoshospi;
     FirebaseDatabase database;
     DatabaseReference myRef;
@@ -57,9 +51,6 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
 
         Bundle extras=getIntent().getExtras();
         eps = extras.getString("eps");
-
-//        prefs= getSharedPreferences("MisPreferencias",MODE_PRIVATE);
-//        editor = prefs.edit();
 
         database = FirebaseDatabase.getInstance();
         datoshospi = new ArrayList<DatosHospi>();
@@ -78,19 +69,6 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
 
             }
         });
-//        myRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot userSnapshot: dataSnapshot.getChildren()){
-//                    lista_entrada.add(userSnapshot.getValue(Lista_entrada.class));
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
 
         list = (ListView) findViewById(R.id.list);
         Adapter adapter= new Adapter(this, datoshospi);
@@ -145,93 +123,12 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_parques, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id=item.getItemId();
-//        switch (id)
-//        {
-//            case R.id.cerrar: //cerrar es nombre de menu.xml
-//                editor.putInt("login",-1); //aqui coloca el -1, para que quede sin login
-//                editor.commit();
-//                intent =new Intent(ListActivity.this, LoginActivity.class); //ojo a lo que antepone el this!!!
-//                startActivity(intent);
-//                finish();
-//                break;
-//            case R.id.Principal: //este tambien esta en menu.xml
-//                intent =new Intent(ListActivity.this, DrawerMainActivity.class); //ojo a lo que antepone el this!!!
-//                intent.putExtra("username", username);
-//                intent.putExtra("correo", correo);
-//                startActivity(intent);
-//                finish();
-//                break;
-//            case R.id.miPerfil: //este tambien esta en menu.xml
-//                intent =new Intent(ListActivity.this, DrawerPerfilActivity.class); //ojo a lo que antepone el this!!!
-//                intent.putExtra("username", username);
-//                intent.putExtra("correo", correo);
-//                startActivity(intent);
-//                finish();
-//                break;
-//            case R.id.sitios: //cerrar es nombre de menu.xml
-//                intent =new Intent(ListActivity.this, DrawerSitiosActivity.class); //ojo a lo que antepone el this!!!
-//                intent.putExtra("username", username);
-//                intent.putExtra("correo", correo);
-//                startActivity(intent);
-//                finish();
-//                break;
-//            case R.id.bares: //cerrar es nombre de menu.xml
-//                intent =new Intent(ListActivity.this, DrawerBarActivity.class); //ojo a lo que antepone el this!!!
-//                intent.putExtra("username", username);
-//                intent.putExtra("correo", correo);
-//                startActivity(intent);
-//                finish();
-//                break;
-//            case R.id.hotel: //cerrar es nombre de menu.xml
-//                intent =new Intent(ListActivity.this, DrawerHotelActivity.class); //ojo a lo que antepone el this!!!
-//                intent.putExtra("username", username);
-//                intent.putExtra("correo", correo);
-//                startActivity(intent);
-//                finish();
-//                break;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
-
     class Adapter extends ArrayAdapter<DatosHospi> {
 
         public Adapter(@NonNull Context context, ArrayList<DatosHospi> datoshospi) { //recibe contecto y arreglo
             super(context, R.layout.list_item, datoshospi); //Retorna el array con la info
         }
 
-
-
-        //ctrl + O y buscar getview
-//        @NonNull
-//        @Override
-//        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-//            LayoutInflater inflater = LayoutInflater.from(getContext());
-//            View item = inflater.inflate(R.layout.list_item, null);
-//
-//            TextView nombre=(TextView) item.findViewById(R.id.Nombre);
-//            nombre.setText(datos[position].getNombre());
-//
-//            TextView descrip=(TextView) item.findViewById(R.id.Descrip);
-//            descrip.setText(datos[position].getDescrip());
-//
-//            TextView direc=(TextView) item.findViewById(R.id.Direcc);
-//            direc.setText(datos[position].getDirec());
-//
-//            ImageView imagen= (ImageView) item.findViewById(R.id.iFoto);
-//            imagen.setImageResource(datos[position].getIdImagen());
-//
-//            return item;
-//            //return super.getView(position, convertView, parent);
-//        }
         public View getView(int position, View convertView, ViewGroup parent) {
 
             DatosHospi datoshospi = getItem(position);
@@ -247,8 +144,6 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
 
             TextView direccion = (TextView) item.findViewById(R.id.Direc);
             direccion.setText(datoshospi.getDireccion());
-
-
 
             return item;
         }
@@ -280,10 +175,9 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.cerrar) {
-//            editor.putInt("login",-1);
-//            editor.commit();
             intent = new Intent(ListaSaludDrawerActivity.this, LoginActivity.class);
             startActivity(intent);
+            FirebaseAuth.getInstance().signOut();
             finish();
         }
 
@@ -297,8 +191,12 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.accidente) {
-            Intent intent = new Intent(ListaSaludDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("user", userid);
+            String accidente = "accidente";
+            Intent intent = new Intent(ListaSaludDrawerActivity.this, MapsActivity.class);
+            intent.putExtra("eps", eps);
+            intent.putExtra("patologia", accidente);
+            Toast.makeText(ListaSaludDrawerActivity.this, accidente,
+                    Toast.LENGTH_SHORT).show();
             startActivity(intent);
         } else if (id == R.id.quemaduras) {
             Intent intent = new Intent(ListaSaludDrawerActivity.this, MapasDrawerActivity.class);
@@ -322,7 +220,7 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
 
         } else if (id == R.id.cabeza) {
             Intent intent = new Intent(ListaSaludDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("user", userid);
+            intent.putExtra("eps", eps);
             startActivity(intent);
 
         } else if (id == R.id.cuerpo) {
@@ -357,9 +255,8 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
             finish();
 
         } else if (id == R.id.cerrar) {
-//            editor.putInt("login",-1);
-//            editor.commit();
             intent = new Intent(ListaSaludDrawerActivity.this, LoginActivity.class);
+            FirebaseAuth.getInstance().signOut();
             startActivity(intent);
             finish();
         }

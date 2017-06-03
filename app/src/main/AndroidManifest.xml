@@ -79,7 +79,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ListaSuraActivity" />
         <activity android:name=".DoctorActivity" />
-        <activity android:name=".PerfilActivity"></activity>
+        <activity android:name=".PerfilActivity" />
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps"></activity>
     </application>
 
 </manifest>

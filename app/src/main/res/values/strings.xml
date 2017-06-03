@@ -41,4 +41,5 @@
     <string name="title_activity_sanvicente_drawer">San Vicente Fundación</string>
     <string name="auth_failed">Registro fallido</string>
     <string name="facebook_app_id">493044411034741</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

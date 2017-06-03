@@ -17,14 +17,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class MapasDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FragmentManager fragmentManager;
-    String sangre, snombre, documento, scorreo, sexo, userid;
+    String sangre, snombre, documento, scorreo, sexo, userid, eps;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
     Intent intent;
+    FirebaseDatabase database3;
+    DatabaseReference myRef3;
 
 
     @Override
@@ -37,13 +42,13 @@ public class MapasDrawerActivity extends AppCompatActivity
         Bundle extras = getIntent().getExtras();
 
 //        sexo = extras.getString("sexo");
-        userid = extras.getString("user");
+        eps = extras.getString("eps");
 //        snombre = extras.getString("nombre");
 //        documento = extras.getString("documento");
 //        scorreo = extras.getString("correo");
 
-        prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
-        editor = prefs.edit();
+//        prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
+//        editor = prefs.edit();
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
