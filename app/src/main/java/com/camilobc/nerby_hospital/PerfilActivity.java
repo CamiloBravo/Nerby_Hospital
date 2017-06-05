@@ -22,6 +22,7 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -95,7 +96,7 @@ public class PerfilActivity extends AppCompatActivity {
                     info.add(dataSnapshot.child(userid).getValue(Correo.class));
                     nombre = info.get(0).getNombre();
                     sangre = info.get(0).getSangre();
-                    correo = info.get(0).getCorreo();
+                    correo = info.get(0).getTelefono();
                     documento = info.get(0).getDocumento();
                     tnombre_perfil.setText(nombre);
                     tsangre_perfil.setText(sangre);
@@ -199,9 +200,11 @@ public class PerfilActivity extends AppCompatActivity {
         if (id == R.id.cerrar_sesion) {
 //            editor.putInt("login",-1);
 //            editor.commit();
+            LoginManager.getInstance().logOut();
+            FirebaseAuth.getInstance().signOut();
             intent = new Intent(PerfilActivity.this, LoginActivity.class);
             startActivity(intent);
-            FirebaseAuth.getInstance().signOut();
+
             finish();
 
         }

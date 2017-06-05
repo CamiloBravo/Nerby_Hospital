@@ -41,10 +41,6 @@
                 android:icon="@drawable/ic_menu_send"
                 android:title="Dolor de estómago" />
             <item
-                android:id="@+id/oido"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Dolor de oido" />
-            <item
                 android:id="@+id/vision"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Vision Borrosa" />

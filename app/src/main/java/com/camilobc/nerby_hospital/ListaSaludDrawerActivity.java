@@ -24,6 +24,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -51,6 +52,8 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
 
         Bundle extras=getIntent().getExtras();
         eps = extras.getString("eps");
+        Toast.makeText(ListaSaludDrawerActivity.this, eps,
+                Toast.LENGTH_SHORT).show();
 
         database = FirebaseDatabase.getInstance();
         datoshospi = new ArrayList<DatosHospi>();
@@ -175,9 +178,10 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.cerrar) {
+            LoginManager.getInstance().logOut();
+            FirebaseAuth.getInstance().signOut();
             intent = new Intent(ListaSaludDrawerActivity.this, LoginActivity.class);
             startActivity(intent);
-            FirebaseAuth.getInstance().signOut();
             finish();
         }
 
@@ -189,74 +193,89 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        if(eps.equals("Colsanitas")){
+            eps="Sanitas";
+        }
 
         if (id == R.id.accidente) {
-            String accidente = "accidente";
-            Intent intent = new Intent(ListaSaludDrawerActivity.this, MapsActivity.class);
+            String accidente = "Accidentes";
+            Intent intent = new Intent(ListaSaludDrawerActivity.this, Lista_accidentes.class);
             intent.putExtra("eps", eps);
             intent.putExtra("patologia", accidente);
-            Toast.makeText(ListaSaludDrawerActivity.this, accidente,
-                    Toast.LENGTH_SHORT).show();
             startActivity(intent);
         } else if (id == R.id.quemaduras) {
-            Intent intent = new Intent(ListaSaludDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("user", userid);
+            String accidente = "Quemaduras";
+            Intent intent = new Intent(ListaSaludDrawerActivity.this, Lista_accidentes.class);
+            intent.putExtra("eps", eps);
+            intent.putExtra("patologia", accidente);
             startActivity(intent);
 
         } else if (id == R.id.infecciones) {
-            Intent intent = new Intent(ListaSaludDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("user", userid);
+            String accidente = "Infecciones";
+            Intent intent = new Intent(ListaSaludDrawerActivity.this, Lista_accidentes.class);
+            intent.putExtra("eps", eps);
+            intent.putExtra("patologia", accidente);
             startActivity(intent);
 
         } else if (id == R.id.alergias) {
-            Intent intent = new Intent(ListaSaludDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("user", userid);
+            String accidente = "Alergias Agudas";
+            Intent intent = new Intent(ListaSaludDrawerActivity.this, Lista_accidentes.class);
+            intent.putExtra("eps", eps);
+            intent.putExtra("patologia", accidente);
             startActivity(intent);
 
         } else if (id == R.id.hemorragias) {
-            Intent intent = new Intent(ListaSaludDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("user", userid);
+            String accidente = "Hemorragias";
+            Intent intent = new Intent(ListaSaludDrawerActivity.this, Lista_accidentes.class);
+            intent.putExtra("eps", eps);
+            intent.putExtra("patologia", accidente);
             startActivity(intent);
 
         } else if (id == R.id.cabeza) {
-            Intent intent = new Intent(ListaSaludDrawerActivity.this, MapasDrawerActivity.class);
+            String accidente = "Dolor de Cabeza";
+            Intent intent = new Intent(ListaSaludDrawerActivity.this, Lista_accidentes.class);
             intent.putExtra("eps", eps);
+            intent.putExtra("patologia", accidente);
             startActivity(intent);
 
         } else if (id == R.id.cuerpo) {
-            Intent intent = new Intent(ListaSaludDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("user", userid);
+            String accidente = "Dolor de las Articulaciones";
+            Intent intent = new Intent(ListaSaludDrawerActivity.this, Lista_accidentes.class);
+            intent.putExtra("eps", eps);
+            intent.putExtra("patologia", accidente);
             startActivity(intent);
 
         } else if (id == R.id.estomago) {
-            Intent intent = new Intent(ListaSaludDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("user", userid);
-            startActivity(intent);
-
-        } else if (id == R.id.oido) {
-            Intent intent = new Intent(ListaSaludDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("user", userid);
+            String accidente = "Dolor de Estómago";
+            Intent intent = new Intent(ListaSaludDrawerActivity.this, Lista_accidentes.class);
+            intent.putExtra("eps", eps);
+            intent.putExtra("patologia", accidente);
             startActivity(intent);
 
         } else if (id == R.id.vision) {
-            Intent intent = new Intent(ListaSaludDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("user", userid);
+            String accidente = "Visión Borrosa";
+            Intent intent = new Intent(ListaSaludDrawerActivity.this, Lista_accidentes.class);
+            intent.putExtra("eps", eps);
+            intent.putExtra("patologia", accidente);
             startActivity(intent);
 
         } else if (id == R.id.piel) {
-            Intent intent = new Intent(ListaSaludDrawerActivity.this, MapasDrawerActivity.class);
-            intent.putExtra("user", userid);
+            String accidente = "Irritaciones en la piel";
+            Intent intent = new Intent(ListaSaludDrawerActivity.this, Lista_accidentes.class);
+            intent.putExtra("eps", eps);
+            intent.putExtra("patologia", accidente);
             startActivity(intent);
 
         } else if (id == R.id.miperfil) {
-            Intent intent = new Intent(ListaSaludDrawerActivity.this, PerfilDrawerActivity.class);
+            Intent intent = new Intent(ListaSaludDrawerActivity.this, PerfilActivity.class);
             intent.putExtra("user", userid);
             startActivity(intent);
             finish();
 
         } else if (id == R.id.cerrar) {
-            intent = new Intent(ListaSaludDrawerActivity.this, LoginActivity.class);
+            LoginManager.getInstance().logOut();
             FirebaseAuth.getInstance().signOut();
+            intent = new Intent(ListaSaludDrawerActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         }
