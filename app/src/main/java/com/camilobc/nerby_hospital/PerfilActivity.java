@@ -21,8 +21,11 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,6 +33,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -39,6 +45,7 @@ import java.util.ArrayList;
 
 public class PerfilActivity extends AppCompatActivity {
 
+    private StorageReference mStorage;
     Intent intent;
     TextView tnombre_perfil, tcorreo_perfil, tsangre_perfil, tcedula_perfil;
     String sangre, nombre, documento, correo, userid, EPS, name="";
@@ -64,6 +71,7 @@ public class PerfilActivity extends AppCompatActivity {
         database3 = FirebaseDatabase.getInstance();
         myRef3 = database3.getReference("Datos");
         mAuth = FirebaseAuth.getInstance();
+        mStorage = FirebaseStorage.getInstance().getReference();
 
         ListaSalud = (Spinner) findViewById(R.id.ListaEPS);
         items = getResources().getStringArray(R.array.EPS);
@@ -157,13 +165,22 @@ public class PerfilActivity extends AppCompatActivity {
             }
         });
         builder.show();
-
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode==1234 && resultCode==RESULT_OK){
             Uri selectImage = data.getData();
+            StorageReference filepath = mStorage.child("Fotos").child(userid).child(selectImage.getLastPathSegment());
+            filepath.putFile(selectImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                    @SuppressWarnings("VisibleForTests") Uri fotodescarga = taskSnapshot.getDownloadUrl();
+//                    Glide.with(PerfilActivity.this).load(fotodescarga).fitCenter().centerCrop().into(iUsuario);
+                    Toast.makeText(PerfilActivity.this, "Se subió exitosamente la foto", Toast.LENGTH_SHORT).show();
+                }
+            });
+
             try {
                 InputStream is = getContentResolver().openInputStream(selectImage);
                 BufferedInputStream bis = new BufferedInputStream(is);
@@ -198,17 +215,12 @@ public class PerfilActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.cerrar_sesion) {
-//            editor.putInt("login",-1);
-//            editor.commit();
             LoginManager.getInstance().logOut();
             FirebaseAuth.getInstance().signOut();
             intent = new Intent(PerfilActivity.this, LoginActivity.class);
             startActivity(intent);
-
             finish();
-
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
