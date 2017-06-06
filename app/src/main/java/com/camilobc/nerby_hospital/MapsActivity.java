@@ -4,6 +4,7 @@ import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -18,8 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    String eps, patologia;
-    int Lat, Long;
+    //String eps, patologia;
+    String lat, longitud;
     FirebaseDatabase database3;
     DatabaseReference myRef3;
 
@@ -36,12 +37,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         Bundle extras = getIntent().getExtras();
 
-        patologia = extras.getString("patologia");
-        eps = extras.getString("eps");
+        lat = extras.getString("lat");
+        longitud = extras.getString("longitud");
 //        Lat = Integer.parseInt(eps);
 
-        database3 = FirebaseDatabase.getInstance();
-        myRef3 = database3.getReference("Patologias").child(eps).child(patologia);
+        //database3 = FirebaseDatabase.getInstance();
+        //myRef3 = database3.getReference("Patologias").child(eps).child(patologia);
     }
 
 
@@ -72,7 +73,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMyLocationEnabled(true);
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-        LatLng Leon13= new LatLng(6.266872, -75.565172);
+        LatLng Leon13= new LatLng(Double.valueOf(lat), Double.valueOf(longitud));
         mMap.addMarker(new MarkerOptions().position(Leon13).title("Clinica Leon XIII").snippet("Clinica").icon(BitmapDescriptorFactory.fromResource(R.drawable.hosp3)));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Leon13,16)); //entre mas pequeño el numero mas alto el mapa
     }
