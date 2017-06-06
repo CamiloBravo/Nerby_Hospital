@@ -39,11 +39,12 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
 
     Intent intent;
     String sangre, snombre, documento, scorreo, userid, eps;
-
+    TextView textView, textView2, Ttitulo;
     ArrayList<DatosHospi> datoshospi;
     FirebaseDatabase database;
     DatabaseReference myRef;
     ListView list;
+    int img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,8 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
 
         Bundle extras=getIntent().getExtras();
         eps = extras.getString("eps");
-        Toast.makeText(ListaSaludDrawerActivity.this, eps,
+        snombre= extras.getString("nombre");
+        Toast.makeText(ListaSaludDrawerActivity.this, snombre,
                 Toast.LENGTH_SHORT).show();
 
         database = FirebaseDatabase.getInstance();
@@ -76,6 +78,9 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
         list = (ListView) findViewById(R.id.list);
         Adapter adapter= new Adapter(this, datoshospi);
         list.setAdapter(adapter);
+
+        Ttitulo=(TextView) findViewById(R.id.Ttitulo);
+        Ttitulo.setText("Hospitales");
 
 //        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
@@ -124,6 +129,13 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View header= navigationView.getHeaderView(0);
+        textView=(TextView) header.findViewById(R.id.texview2);
+        textView2=(TextView) header.findViewById(R.id.textView);
+
+        textView.setText(snombre);
+        textView2.setText(eps);
+
     }
 
     class Adapter extends ArrayAdapter<DatosHospi> {
@@ -138,6 +150,12 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
 
             LayoutInflater inflater = LayoutInflater.from(getContext());
             View item = inflater.inflate(R.layout.list_item, null);
+
+//            if (datoshospi.getNombre().equals("Clinica el rosario")){
+//                ImageView img = (ImageView) findViewById(R.id.imagHosp);
+//                img.set;
+//            }
+
 
             TextView nombre = (TextView) item.findViewById(R.id.Nombre);
             nombre.setText(datoshospi.getNombre());

@@ -125,6 +125,7 @@ public class PerfilActivity extends AppCompatActivity {
                 EPS = ListaSalud.getItemAtPosition(ListaSalud.getSelectedItemPosition()).toString();
                 Intent intent = new Intent(PerfilActivity.this, ListaSaludDrawerActivity.class);
                 intent.putExtra("eps", EPS);
+                intent.putExtra("nombre", nombre);
                 startActivity(intent);
 //                if (EPS.equals("Coomeva")){
 //                    Intent intent = new Intent(PerfilActivity.this, ListaSaludDrawerActivity.class);

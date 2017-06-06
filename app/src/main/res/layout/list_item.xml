@@ -12,29 +12,52 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="#f5f5f5"
         android:layout_margin="5dp">
-        <TextView
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:text="Nombre"
-            android:textColor="@color/black"
-            android:id="@+id/Nombre"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Dirección"
-            android:id="@+id/Direc"
-            android:textColor="@color/blue"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="Teléfono"
-            android:textAlignment="textEnd"
-            android:textSize="20sp"
-            android:id="@+id/Tel"/>
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/Nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre"
+                    android:textColor="@color/black"
+                    android:textSize="30sp" />
+
+                <TextView
+                    android:id="@+id/Direc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dirección"
+                    android:textColor="#5f9ea0"
+                    android:textSize="20sp"
+                    android:textStyle="italic" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#5f9ea0"
+                    android:text="Teléfono"
+
+
+                    android:textSize="20sp"
+                    android:id="@+id/Tel"/>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
+                android:src="@drawable/flecha5" />
+        </LinearLayout>
+
 
     </LinearLayout>
 

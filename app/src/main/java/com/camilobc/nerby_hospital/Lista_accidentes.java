@@ -33,9 +33,10 @@ public class Lista_accidentes extends AppCompatActivity {
     DatabaseReference myRef;
     ListView list;
     String eps, accidente;
-    //Ubicacion ubicacion;
-    String lat,longitud;
-    ArrayList<Ubicacion> ubicacion;
+    Ubicacion ubicacion;
+    String lat,longitud, data;
+    TextView Titulo;
+    //ArrayList<Ubicacion> ubicacion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +47,13 @@ public class Lista_accidentes extends AppCompatActivity {
         eps = extras.getString("eps");
         accidente = extras.getString("patologia");
 
-        ubicacion = new ArrayList<Ubicacion>();
+       // ubicacion = new ArrayList<Ubicacion>();
 
         database = FirebaseDatabase.getInstance();
         datoshospi = new ArrayList<DatosHospi>();
+
+        Titulo=(TextView) findViewById(R.id.Ttitulo2);
+        Titulo.setText(accidente);
 
         myRef = database.getReference("Patologias").child(eps).child(accidente);
 
@@ -72,7 +76,7 @@ public class Lista_accidentes extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final String data= ((DatosHospi) parent.getItemAtPosition(position)).getNombre();
+                data= ((DatosHospi) parent.getItemAtPosition(position)).getNombre();
                 //Toast.makeText(Lista_accidentes.this,data,Toast.LENGTH_SHORT).show();
                 database = FirebaseDatabase.getInstance();
                 myRef = database.getReference("Patologias").child(eps).child(accidente);
@@ -81,14 +85,15 @@ public class Lista_accidentes extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.child(data).exists()){
-                            ubicacion.add(dataSnapshot.child(data).getValue(Ubicacion.class));
-                            //ubicacion = dataSnapshot.child(data).getValue(Ubicacion.class);
-                            lat = ubicacion.get(0).getLat();
-                            longitud = ubicacion.get(0).getLongitud();
+                           // ubicacion.add(dataSnapshot.child(data).getValue(Ubicacion.class));
+                            ubicacion = dataSnapshot.child(data).getValue(Ubicacion.class);
+                            lat = ubicacion.getLat();
+                            longitud = ubicacion.getLongitud();
                             //Toast.makeText(Lista_accidentes.this,lat,Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(Lista_accidentes.this, MapsActivity.class);
                             intent.putExtra("lat", lat);
                             intent.putExtra("longitud",longitud);
+                            intent.putExtra("nombre", data);
                             startActivity(intent);
                         }
                     }

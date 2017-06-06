@@ -6,15 +6,17 @@ package com.camilobc.nerby_hospital;
 
 public class DatosHospi {
     String direccion, nombre, telefono;
+    int idImagen;
 
     DatosHospi(){
 
     }
 
-    public DatosHospi(String direccion, String nombre, String telefono) {
+    public DatosHospi(String direccion, String nombre, String telefono, int idImagen) {
         this.direccion = direccion;
         this.nombre = nombre;
         this.telefono = telefono;
+        this.idImagen = idImagen;
     }
 
     public String getDireccion() {
@@ -39,5 +41,13 @@ public class DatosHospi {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public int getIdImagen() {
+        return idImagen;
+    }
+
+    public void setIdImagen(int idImagen) {
+        this.idImagen = idImagen;
     }
 }

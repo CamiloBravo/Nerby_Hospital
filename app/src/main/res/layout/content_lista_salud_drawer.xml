@@ -4,16 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/azul"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.camilobc.nerby_hospital.ListaSaludDrawerActivity"
     tools:showIn="@layout/app_bar_lista_salud_drawer">
 
-    <ListView
+    <LinearLayout
         android:layout_width="368dp"
-        android:layout_height="495dp"
-        android:id="@+id/list"
-        app:layout_editor_absoluteX="0dp"
-        app:layout_editor_absoluteY="0dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
 
-    </ListView>
+        <TextView
+            android:id="@+id/Ttitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Título"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="50dp"
+            android:textStyle="bold" />
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:divider="#0000"
+            android:dividerHeight="6dp"
+            android:layout_marginTop="3dp"
+            android:padding="5dp"
+            android:background="#0000"
+            android:cacheColorHint="#0000"
+            android:scrollbars="none">
+        </ListView>
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

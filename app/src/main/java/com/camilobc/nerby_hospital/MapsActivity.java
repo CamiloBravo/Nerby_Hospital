@@ -20,7 +20,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     //String eps, patologia;
-    String lat, longitud;
+    String lat, longitud, data;
     FirebaseDatabase database3;
     DatabaseReference myRef3;
 
@@ -39,6 +39,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         lat = extras.getString("lat");
         longitud = extras.getString("longitud");
+        data = extras.getString("nombre");
 //        Lat = Integer.parseInt(eps);
 
         //database3 = FirebaseDatabase.getInstance();
@@ -74,7 +75,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         LatLng Leon13= new LatLng(Double.valueOf(lat), Double.valueOf(longitud));
-        mMap.addMarker(new MarkerOptions().position(Leon13).title("Clinica Leon XIII").snippet("Clinica").icon(BitmapDescriptorFactory.fromResource(R.drawable.hosp3)));
+        mMap.addMarker(new MarkerOptions().position(Leon13).title(data).snippet("Clinica").icon(BitmapDescriptorFactory.fromResource(R.drawable.hosp3)));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Leon13,16)); //entre mas pequeño el numero mas alto el mapa
     }
 }
