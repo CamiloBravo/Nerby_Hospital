@@ -45,6 +45,8 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
     DatabaseReference myRef;
     ListView list;
     int img;
+    String lat,longitud, data;
+    Ubicacion ubicacion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +80,50 @@ public class ListaSaludDrawerActivity extends AppCompatActivity
         list = (ListView) findViewById(R.id.list);
         Adapter adapter= new Adapter(this, datoshospi);
         list.setAdapter(adapter);
+        if(eps.equals("Colsanitas")){
+            eps="Sanitas";
+        }
 
         Ttitulo=(TextView) findViewById(R.id.Ttitulo);
         Ttitulo.setText("Hospitales");
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                data= ((DatosHospi) parent.getItemAtPosition(position)).getNombre();
+                //Toast.makeText(ListaSaludDrawerActivity.this,accidente,Toast.LENGTH_SHORT).show();
+                database = FirebaseDatabase.getInstance();
+                String accidente = "Accidentes";
+                //Toast.makeText(ListaSaludDrawerActivity.this,eps,Toast.LENGTH_SHORT).show();
+                myRef = database.getReference("Patologias").child(eps).child(accidente);
+
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.child(data).exists()){
+                            // ubicacion.add(dataSnapshot.child(data).getValue(Ubicacion.class));
+                            ubicacion = dataSnapshot.child(data).getValue(Ubicacion.class);
+                            lat = ubicacion.getLat();
+                            longitud = ubicacion.getLongitud();
+                            //Toast.makeText(ListaSaludDrawerActivity.this,lat,Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(ListaSaludDrawerActivity.this, MapsActivity.class);
+                            intent.putExtra("lat", lat);
+                            intent.putExtra("longitud",longitud);
+                            intent.putExtra("nombre", data);
+                            startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+//                Intent intent=new Intent(ListActivity.this, HotelActivity.class);
+//                startActivity(intent);
+
+            }
+        });
 
 //        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
